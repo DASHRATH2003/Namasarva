@@ -2620,7 +2620,8 @@ class _BoardingDroppingPageState extends State<BoardingDroppingPage>
 
   Future<void> _fetchBoardingPointDetails() async {
     // const String apiUrl = "https://bus.srdvapi.com/v5/rest/GetBoardingPointDetails";
-    const String apiUrl = "http://65.0.115.185/bus-api/GetBoardingPointDetails";
+    const String apiUrl =
+        "https://namma-savaari-api-backend-9mpl.vercel.app/get-boarding-point";
 
     Map<String, dynamic> requestBody = {
       "ClientId": "180187",

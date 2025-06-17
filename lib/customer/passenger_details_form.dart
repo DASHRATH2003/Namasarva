@@ -226,11 +226,7 @@
 //
 //
 
-
-
 // testing
-
-
 
 // import 'dart:convert';
 // import 'dart:async';
@@ -448,10 +444,6 @@
 //   }
 // }
 
-
-
-
-
 // Testing
 
 // import 'dart:convert';
@@ -632,9 +624,7 @@
 //   }
 // }
 
-
 //Test
-
 
 // import 'dart:convert';
 // import 'package:bus_booking_app/customer/ticket_details_screen.dart';
@@ -863,11 +853,7 @@
 //   }
 // }
 
-
-
-
 // testing_1
-
 
 // Future<void> _blockSeat() async {
 //   const String apiUrl = "https://bus.srdvtest.com/v5/rest/Block";
@@ -971,13 +957,7 @@
 //   }
 // }
 
-
-
-
-
-
 // 1_1_2025
-
 
 //
 // import 'dart:convert';
@@ -1206,14 +1186,7 @@
 //   }
 // }
 
-
-
-
 //success 1
-
-
-
-
 
 // import 'dart:convert';
 // import 'package:flutter/material.dart';
@@ -1461,14 +1434,7 @@
 //   }
 // }
 
-
-
-
-
 //success 1 testing
-
-
-
 
 // import 'dart:convert';
 // import 'dart:async'; // For Future.delayed
@@ -1765,13 +1731,7 @@
 //   }
 // }
 
-
-
-
-
 //new seat Blocking success
-
-
 
 // import 'dart:convert';
 // import 'dart:async'; // For Future.delayed
@@ -2141,11 +2101,7 @@
 //   }
 // }
 
-
-
-
 // seat block success
-
 
 //
 // import 'dart:convert';
@@ -2476,13 +2432,7 @@
 // }
 //
 
-
-
-
 // improving the seat block
-
-
-
 
 //
 // import 'dart:convert';
@@ -3336,13 +3286,7 @@
 //   );
 // }
 
-
-
-
 // adding the passengers to firestore
-
-
-
 
 // import 'dart:convert';
 // import 'dart:async'; // For Future.delayed
@@ -3889,9 +3833,7 @@
 //   );
 // }
 
-
 // male can book ladies seat but it wont book amount will deduct
-
 
 // import 'dart:convert';
 // import 'dart:async'; // For Future.delayed
@@ -4441,14 +4383,7 @@
 //   );
 // }
 
-
-
-
-
 // main multiple seats are not booking
-
-
-
 
 // import 'dart:convert';
 // import 'dart:async'; // For Future.delayed
@@ -5240,10 +5175,7 @@
 //   );
 // }
 
-
-
 // pussy
-
 
 // import 'dart:convert';
 // import 'dart:async';
@@ -5695,11 +5627,7 @@
 //   }
 // }
 
-
-
 // updating
-
-
 
 import 'dart:convert';
 import 'dart:async';
@@ -5800,7 +5728,8 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
     });
   }
 
-  void _onSavedPassengerSelected(int passengerIndex, Map<String, dynamic> passenger) {
+  void _onSavedPassengerSelected(
+      int passengerIndex, Map<String, dynamic> passenger) {
     setState(() {
       _passengerForms[passengerIndex] = {
         ..._passengerForms[passengerIndex],
@@ -5855,7 +5784,8 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
     }
 
     // Check for duplicate phone numbers
-    final phoneNumbers = _passengerForms.map((p) => p['phone'].toString().trim()).toList();
+    final phoneNumbers =
+        _passengerForms.map((p) => p['phone'].toString().trim()).toList();
     final uniquePhoneNumbers = phoneNumbers.toSet();
     if (phoneNumbers.length != uniquePhoneNumbers.length) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -5868,7 +5798,9 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
     }
 
     // Check for duplicate emails
-    final emails = _passengerForms.map((p) => p['email'].toString().trim().toLowerCase()).toList();
+    final emails = _passengerForms
+        .map((p) => p['email'].toString().trim().toLowerCase())
+        .toList();
     final uniqueEmails = emails.toSet();
     if (emails.length != uniqueEmails.length) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -5886,7 +5818,8 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
       if (!emailRegex.hasMatch(email)) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("Please enter valid email addresses for all passengers"),
+            content:
+                Text("Please enter valid email addresses for all passengers"),
             backgroundColor: Colors.red,
           ),
         );
@@ -5899,7 +5832,8 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
       if (phone.length < 10 || !RegExp(r'^[0-9]+$').hasMatch(phone)) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("Please enter valid phone numbers for all passengers (minimum 10 digits)"),
+            content: Text(
+                "Please enter valid phone numbers for all passengers (minimum 10 digits)"),
             backgroundColor: Colors.red,
           ),
         );
@@ -5927,8 +5861,10 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
     // Create passenger data for each selected seat
     List<Map<String, dynamic>> passengersData = _passengerForms.map((form) {
       return {
-        "LeadPassenger": _passengerForms.indexOf(form) == 0, // First passenger is lead
-        "PassengerId": DateTime.now().millisecondsSinceEpoch + _passengerForms.indexOf(form),
+        "LeadPassenger":
+            _passengerForms.indexOf(form) == 0, // First passenger is lead
+        "PassengerId": DateTime.now().millisecondsSinceEpoch +
+            _passengerForms.indexOf(form),
         "Title": "Mr",
         "FirstName": form['firstName'],
         "LastName": form['lastName'],
@@ -5952,31 +5888,32 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
           "SeatStatus": form['seat']['SeatStatus'],
           "SeatType": form['seat']['SeatType'],
           "Width": form['seat']['Width'],
-          "Price": form['seat']['Price'] ?? {
-            "CurrencyCode": "INR",
-            "BasePrice": form['seat']['SeatFare'],
-            "Tax": 0,
-            "OtherCharges": 0,
-            "Discount": 0,
-            "PublishedPrice": form['seat']['SeatFare'],
-            "PublishedPriceRoundedOff": form['seat']['SeatFare'],
-            "OfferedPrice": form['seat']['SeatFare'],
-            "OfferedPriceRoundedOff": form['seat']['SeatFare'],
-            "AgentCommission": 0,
-            "AgentMarkUp": 0,
-            "TDS": 0,
-            "GST": {
-              "CGSTAmount": 0,
-              "CGSTRate": 0,
-              "CessAmount": 0,
-              "CessRate": 0,
-              "IGSTAmount": 0,
-              "IGSTRate": 0,
-              "SGSTAmount": 0,
-              "SGSTRate": 0,
-              "TaxableAmount": form['seat']['SeatFare'],
-            }
-          }
+          "Price": form['seat']['Price'] ??
+              {
+                "CurrencyCode": "INR",
+                "BasePrice": form['seat']['SeatFare'],
+                "Tax": 0,
+                "OtherCharges": 0,
+                "Discount": 0,
+                "PublishedPrice": form['seat']['SeatFare'],
+                "PublishedPriceRoundedOff": form['seat']['SeatFare'],
+                "OfferedPrice": form['seat']['SeatFare'],
+                "OfferedPriceRoundedOff": form['seat']['SeatFare'],
+                "AgentCommission": 0,
+                "AgentMarkUp": 0,
+                "TDS": 0,
+                "GST": {
+                  "CGSTAmount": 0,
+                  "CGSTRate": 0,
+                  "CessAmount": 0,
+                  "CessRate": 0,
+                  "IGSTAmount": 0,
+                  "IGSTRate": 0,
+                  "SGSTAmount": 0,
+                  "SGSTRate": 0,
+                  "TaxableAmount": form['seat']['SeatFare'],
+                }
+              }
         }
       };
     }).toList();
@@ -5997,7 +5934,8 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
       final newPassengersCount = passengersData
           .asMap()
           .entries
-          .where((entry) => !_passengerForms[entry.key]['isUsingSavedPassenger'])
+          .where(
+              (entry) => !_passengerForms[entry.key]['isUsingSavedPassenger'])
           .length;
 
       // Calculate total passengers after adding new ones
@@ -6023,11 +5961,17 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
 
       // Add new passengers (only those not using saved passengers)
       // But only if we have room (currentCount - deleted + new <= maxPassengers)
-      final remainingCapacity = maxPassengers - (currentCount - (totalPassengersAfterAdd > maxPassengers ? (totalPassengersAfterAdd - maxPassengers) : 0));
+      final remainingCapacity = maxPassengers -
+          (currentCount -
+              (totalPassengersAfterAdd > maxPassengers
+                  ? (totalPassengersAfterAdd - maxPassengers)
+                  : 0));
 
-          if (remainingCapacity > 0) {
+      if (remainingCapacity > 0) {
         int addedCount = 0;
-        for (var i = 0; i < passengersData.length && addedCount < remainingCapacity; i++) {
+        for (var i = 0;
+            i < passengersData.length && addedCount < remainingCapacity;
+            i++) {
           if (!_passengerForms[i]['isUsingSavedPassenger']) {
             batch.set(passengersRef.doc(), {
               "FirstName": passengersData[i]["FirstName"],
@@ -6045,7 +5989,8 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
       }
 
       await batch.commit();
-      print("Passengers saved to Firestore (strict 6-passenger limit enforced)");
+      print(
+          "Passengers saved to Firestore (strict 6-passenger limit enforced)");
     } catch (e) {
       setState(() {
         _errorMessage = "Failed to save passengers: $e";
@@ -6055,7 +6000,8 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
     }
 
     // API Call to Block Seats
-    const String apiUrl = "http://65.0.115.185/bus-api/Block";
+    const String apiUrl =
+        "https://namma-savaari-api-backend-9mpl.vercel.app/bus-api/Block";
     final Map<String, dynamic> requestBody = {
       "ClientId": "180187",
       "UserName": "Namma434",
@@ -6130,8 +6076,9 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
                 age: passengersData[0]["Age"],
                 passengers: passengersData,
 
-                                onNavigateToHome: () {
-                  Navigator.popUntil(context, (route) => route.isFirst); // Go back to HomePage
+                onNavigateToHome: () {
+                  Navigator.popUntil(
+                      context, (route) => route.isFirst); // Go back to HomePage
                   // Optional: If HomePage is stateful, find a way to call _onItemTapped(0)
                 },
               ),
@@ -6145,20 +6092,24 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
             });
           });
         } else {
-          final errorMessage = responseData['Error']?['ErrorMessage'] ?? "Failed to block seats. Please try again.";
+          final errorMessage = responseData['Error']?['ErrorMessage'] ??
+              "Failed to block seats. Please try again.";
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(errorMessage), backgroundColor: Colors.red),
           );
         }
       } else {
-        final errorMessage = responseData['Error']?['ErrorMessage'] ?? "Failed to block seats. Status code: ${response.statusCode}";
+        final errorMessage = responseData['Error']?['ErrorMessage'] ??
+            "Failed to block seats. Status code: ${response.statusCode}";
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(errorMessage), backgroundColor: Colors.red),
         );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("An error occurred: $e"), backgroundColor: Colors.red),
+        SnackBar(
+            content: Text("An error occurred: $e"),
+            backgroundColor: Colors.red),
       );
       print("Exception: $e");
     } finally {
@@ -6180,12 +6131,18 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
               children: [
                 const Text(
                   "Passenger Information",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   "${widget.sourceCity} -> ${widget.destinationCity}",
-                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
                 // SizedBox(height: 4),
                 // Text(
@@ -6213,7 +6170,8 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
                 final seat = form['seat'];
 
                 return Card(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
                   elevation: 5,
                   margin: const EdgeInsets.only(bottom: 20),
                   child: Padding(
@@ -6226,7 +6184,8 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
                           children: [
                             Text(
                               "Seat ${seat['SeatName']}",
-                              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              style: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                             if (form['isUsingSavedPassenger'])
                               Chip(
@@ -6238,20 +6197,26 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
                         const SizedBox(height: 12),
 
                         // Saved Passenger Selection
-                        if (!form['isUsingSavedPassenger'] && _savedPassengers.isNotEmpty)
+                        if (!form['isUsingSavedPassenger'] &&
+                            _savedPassengers.isNotEmpty)
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text("Select from saved passengers:", style: TextStyle(fontWeight: FontWeight.w500)),
+                              const Text("Select from saved passengers:",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.w500)),
                               const SizedBox(height: 8),
                               Wrap(
                                 spacing: 8,
                                 runSpacing: 8,
                                 children: _savedPassengers.map((passenger) {
                                   return ChoiceChip(
-                                    label: Text("${passenger['FirstName']} ${passenger['LastName']}"),
+                                    label: Text(
+                                        "${passenger['FirstName']} ${passenger['LastName']}"),
                                     selected: false,
-                                    onSelected: (_) => _onSavedPassengerSelected(index, passenger),
+                                    onSelected: (_) =>
+                                        _onSavedPassengerSelected(
+                                            index, passenger),
                                   );
                                 }).toList(),
                               ),
@@ -6267,7 +6232,8 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
                           form['firstName'],
                           "First Name",
                           Icons.person,
-                              (value) => setState(() => _passengerForms[index]['firstName'] = value),
+                          (value) => setState(() =>
+                              _passengerForms[index]['firstName'] = value),
                         ),
                         _buildTextField(
                           index,
@@ -6275,7 +6241,8 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
                           form['lastName'],
                           "Last Name",
                           Icons.person_outline,
-                              (value) => setState(() => _passengerForms[index]['lastName'] = value),
+                          (value) => setState(
+                              () => _passengerForms[index]['lastName'] = value),
                         ),
                         _buildTextField(
                           index,
@@ -6283,7 +6250,8 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
                           form['age'],
                           "Age",
                           Icons.cake,
-                              (value) => setState(() => _passengerForms[index]['age'] = value),
+                          (value) => setState(
+                              () => _passengerForms[index]['age'] = value),
                           TextInputType.number,
                         ),
                         const SizedBox(height: 12),
@@ -6291,16 +6259,21 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
                           value: form['gender'],
                           decoration: InputDecoration(
                             labelText: "Gender",
-                            prefixIcon: const Icon(Icons.wc, color: Colors.redAccent),
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                            prefixIcon:
+                                const Icon(Icons.wc, color: Colors.redAccent),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8)),
                             filled: true,
                             fillColor: Colors.grey[200],
                           ),
                           items: ["Male", "Female"]
-                              .map((gender) => DropdownMenuItem(value: gender, child: Text(gender)))
+                              .map((gender) => DropdownMenuItem(
+                                  value: gender, child: Text(gender)))
                               .toList(),
-                          onChanged: (value) => setState(() => _passengerForms[index]['gender'] = value),
-                          validator: (value) => value == null ? "Gender is required" : null,
+                          onChanged: (value) => setState(
+                              () => _passengerForms[index]['gender'] = value),
+                          validator: (value) =>
+                              value == null ? "Gender is required" : null,
                         ),
                         const SizedBox(height: 12),
                         _buildTextField(
@@ -6309,7 +6282,8 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
                           form['phone'],
                           "Phone Number",
                           Icons.phone,
-                              (value) => setState(() => _passengerForms[index]['phone'] = value),
+                          (value) => setState(
+                              () => _passengerForms[index]['phone'] = value),
                           TextInputType.phone,
                         ),
                         _buildTextField(
@@ -6318,7 +6292,8 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
                           form['email'],
                           "Email",
                           Icons.email,
-                              (value) => setState(() => _passengerForms[index]['email'] = value),
+                          (value) => setState(
+                              () => _passengerForms[index]['email'] = value),
                           TextInputType.emailAddress,
                         ),
                         _buildTextField(
@@ -6327,7 +6302,8 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
                           form['address'],
                           "State",
                           Icons.home,
-                              (value) => setState(() => _passengerForms[index]['address'] = value),
+                          (value) => setState(
+                              () => _passengerForms[index]['address'] = value),
                         ),
 
                         // Clear button if using saved passenger
@@ -6336,7 +6312,8 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
                             alignment: Alignment.centerRight,
                             child: TextButton(
                               onPressed: () => _clearPassengerForm(index),
-                              child: const Text("Clear Saved Passenger", style: TextStyle(color: Colors.red)),
+                              child: const Text("Clear Saved Passenger",
+                                  style: TextStyle(color: Colors.red)),
                             ),
                           ),
                       ],
@@ -6351,21 +6328,27 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
               ElevatedButton(
                 onPressed: _isLoading || _isSeatBlocked ? null : _blockSeat,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: _isSeatBlocked ? Colors.green : Colors.redAccent,
+                  backgroundColor:
+                      _isSeatBlocked ? Colors.green : Colors.redAccent,
                   minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
                 ),
                 child: _isLoading
                     ? const CircularProgressIndicator(color: Colors.white)
                     : Text(
-                  _isSeatBlocked ? "Seats Booked" : "Book ${widget.selectedSeats.length} Seats",
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+                        _isSeatBlocked
+                            ? "Seats Booked"
+                            : "Book ${widget.selectedSeats.length} Seats",
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
               ),
               if (_errorMessage.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.only(top: 16),
-                  child: Text(_errorMessage, style: const TextStyle(color: Colors.red)),
+                  child: Text(_errorMessage,
+                      style: const TextStyle(color: Colors.red)),
                 ),
             ],
           ),
@@ -6375,14 +6358,14 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
   }
 
   Widget _buildTextField(
-      int passengerIndex,
-      String fieldKey,
-      String value,
-      String label,
-      IconData icon,
-      Function(String) onChanged, [
-        TextInputType keyboardType = TextInputType.text,
-      ]) {
+    int passengerIndex,
+    String fieldKey,
+    String value,
+    String label,
+    IconData icon,
+    Function(String) onChanged, [
+    TextInputType keyboardType = TextInputType.text,
+  ]) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
@@ -6401,12 +6384,3 @@ class _BlockSeatPageState extends State<BlockSeatPage> {
     );
   }
 }
-
-
-
-
-
-
-
-
-

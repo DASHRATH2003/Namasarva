@@ -238,8 +238,6 @@
 //   }
 // }
 
-
-
 //new
 
 // import 'dart:convert';
@@ -505,9 +503,7 @@
 //   }
 // }
 
-
 //test_good
-
 
 // import 'dart:convert';
 // import 'package:firebase_auth/firebase_auth.dart';
@@ -980,7 +976,6 @@
 
 // response not printing ofter integrated razorpay wrongly
 
-
 // import 'dart:convert';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter/material.dart';
@@ -1249,7 +1244,6 @@
 //     );
 //   }
 // }
-
 
 // correcting night suck
 
@@ -1818,11 +1812,7 @@
 //   }
 // }
 
-
-
-
 // BACK PRESS ADDED ALERT DIALOGUE BOX
-
 
 // import 'dart:convert';
 // import 'package:firebase_auth/firebase_auth.dart';
@@ -2633,12 +2623,8 @@
 //   }
 // }
 
-
-
 /// only one seat it is booking
 library;
-
-
 
 // import 'dart:convert';
 // import 'package:firebase_auth/firebase_auth.dart';
@@ -3201,10 +3187,7 @@ library;
 //   }
 // }
 
-
-
 /// updating to book multiple seats at a time
-
 
 // import 'dart:convert';
 // import 'package:firebase_auth/firebase_auth.dart';
@@ -4274,13 +4257,7 @@ library;
 //   }
 // }
 
-
-
 /// comission also adding finally
-
-
-
-
 
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -4288,7 +4265,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-
 
 class BookSeat extends StatefulWidget {
   final String resultIndex;
@@ -4317,43 +4293,41 @@ class BookSeat extends StatefulWidget {
   final String? idNumber;
   final String address;
   final String age;
-  final List<Map<String, dynamic>> selectedSeats; // Changed to accept list of seats
+  final List<Map<String, dynamic>>
+      selectedSeats; // Changed to accept list of seats
   final List<Map<String, dynamic>> passengers; // All passengers data
   final VoidCallback onNavigateToHome;
 
-
-
-  const BookSeat({
-    super.key,
-    required this.resultIndex,
-    required this.traceId,
-    required this.sourceCity,
-    required this.destinationCity,
-    required this.journeyDate,
-    required this.travelName,
-    required this.busType,
-    required this.arrivalTime,
-    required this.departureTime,
-    required this.boardingPointIndex,
-    required this.droppingPointIndex,
-    required this.selectedBoardingPoint,
-    required this.selectedDroppingPoint,
-    required this.selectedSeats,
-    required this.leadPassenger,
-    required this.passengerId,
-    required this.title,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.phoneno,
-    required this.gender,
-    this.idType,
-    this.idNumber,
-    required this.address,
-    required this.age,
-    required this.passengers,
-    required this.onNavigateToHome
-  });
+  const BookSeat(
+      {super.key,
+      required this.resultIndex,
+      required this.traceId,
+      required this.sourceCity,
+      required this.destinationCity,
+      required this.journeyDate,
+      required this.travelName,
+      required this.busType,
+      required this.arrivalTime,
+      required this.departureTime,
+      required this.boardingPointIndex,
+      required this.droppingPointIndex,
+      required this.selectedBoardingPoint,
+      required this.selectedDroppingPoint,
+      required this.selectedSeats,
+      required this.leadPassenger,
+      required this.passengerId,
+      required this.title,
+      required this.firstName,
+      required this.lastName,
+      required this.email,
+      required this.phoneno,
+      required this.gender,
+      this.idType,
+      this.idNumber,
+      required this.address,
+      required this.age,
+      required this.passengers,
+      required this.onNavigateToHome});
 
   @override
   _BookSeatState createState() => _BookSeatState();
@@ -4363,7 +4337,6 @@ class _BookSeatState extends State<BookSeat> {
   late Razorpay _razorpay;
   bool _isLoading = false;
   double _commission = 0; // Add commission variable
-
 
   @override
   void initState() {
@@ -4383,9 +4356,10 @@ class _BookSeatState extends State<BookSeat> {
 
   // Calculate total amount for all seats with commission
   double get totalAmount => widget.selectedSeats.fold(
-    0.0,
-        (sum, seat) => sum + _calculatePriceWithCommission(seat['Price']['OfferedPrice']),
-  );
+        0.0,
+        (sum, seat) =>
+            sum + _calculatePriceWithCommission(seat['Price']['OfferedPrice']),
+      );
 
   Future<void> _loadCommission() async {
     try {
@@ -4412,7 +4386,8 @@ class _BookSeatState extends State<BookSeat> {
       _isLoading = true;
     });
 
-    String apiUrl = "https://api.razorpay.com/v1/payments/${response.paymentId}/capture";
+    String apiUrl =
+        "https://api.razorpay.com/v1/payments/${response.paymentId}/capture";
     String key = "rzp_live_jRrlgHE9Hldmk5";
     String secret = "C1Cvhlrq3ZaqJXSEq7NFeEUm";
 
@@ -4427,7 +4402,8 @@ class _BookSeatState extends State<BookSeat> {
     });
 
     try {
-      var captureResponse = await http.post(Uri.parse(apiUrl), headers: headers, body: body);
+      var captureResponse =
+          await http.post(Uri.parse(apiUrl), headers: headers, body: body);
 
       if (captureResponse.statusCode == 200) {
         print("Payment Captured Successfully");
@@ -4436,7 +4412,8 @@ class _BookSeatState extends State<BookSeat> {
         print("Failed to capture payment: ${captureResponse.body}");
         _showDialog(
           title: "Payment Capture Failed",
-          message: "Payment was successful but could not be captured. Contact support.",
+          message:
+              "Payment was successful but could not be captured. Contact support.",
           isSuccess: false,
         );
       }
@@ -4500,7 +4477,10 @@ class _BookSeatState extends State<BookSeat> {
     }
   }
 
-  void _showDialog({required String title, required String message, required bool isSuccess}) {
+  void _showDialog(
+      {required String title,
+      required String message,
+      required bool isSuccess}) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -4515,8 +4495,10 @@ class _BookSeatState extends State<BookSeat> {
       ),
     );
   }
+
   Future<void> bookSeat(BuildContext context, String paymentId) async {
-    const String apiUrl = "http://65.0.115.185/bus-api/Book";
+    const String apiUrl =
+        "https://namma-savaari-api-backend-9mpl.vercel.app/get-seat-layout";
 
     // Construct passenger list from the passengers data
     List<Map<String, dynamic>> passengers = widget.passengers.map((passenger) {
@@ -4565,7 +4547,8 @@ class _BookSeatState extends State<BookSeat> {
         final responseData = jsonDecode(response.body);
 
         if (responseData['Error'] != null &&
-            (responseData['Error']['ErrorCode'] != 0 || responseData['Error']['ErrorMessage'].isNotEmpty)) {
+            (responseData['Error']['ErrorCode'] != 0 ||
+                responseData['Error']['ErrorMessage'].isNotEmpty)) {
           setState(() {
             _isLoading = false;
           });
@@ -4603,22 +4586,26 @@ class _BookSeatState extends State<BookSeat> {
               'date': widget.journeyDate,
               'travelName': widget.travelName,
               'busType': widget.busType,
-              'seats': widget.selectedSeats.map((seat) => seat['SeatName']).toList(),
+              'seats':
+                  widget.selectedSeats.map((seat) => seat['SeatName']).toList(),
               'departureTime': widget.departureTime,
               'arrivalTime': widget.arrivalTime,
               'boardingPoint': widget.selectedBoardingPoint,
               'droppingPoint': widget.selectedDroppingPoint,
             },
-            'passengerDetails': passengers.map((p) => {
-              'name': '${p['Title']} ${p['FirstName']} ${p['LastName']}',
-              'email': p['Email'],
-              'phone': p['Phoneno'],
-              'age': p['Age'],
-              'gender': p['Gender'],
-              'idType': p['IdType'],
-              'idNumber': p['IdNumber'],
-              'seat': p['Seat']['SeatName'],
-            }).toList(),
+            'passengerDetails': passengers
+                .map((p) => {
+                      'name':
+                          '${p['Title']} ${p['FirstName']} ${p['LastName']}',
+                      'email': p['Email'],
+                      'phone': p['Phoneno'],
+                      'age': p['Age'],
+                      'gender': p['Gender'],
+                      'idType': p['IdType'],
+                      'idNumber': p['IdNumber'],
+                      'seat': p['Seat']['SeatName'],
+                    })
+                .toList(),
             'createdAt': FieldValue.serverTimestamp(),
             'status': 'confirmed',
             'lastUpdated': FieldValue.serverTimestamp(),
@@ -4664,7 +4651,6 @@ class _BookSeatState extends State<BookSeat> {
                 },
                 child: const Text("ok"),
               ),
-
             ],
           ),
         );
@@ -4689,6 +4675,7 @@ class _BookSeatState extends State<BookSeat> {
       );
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -4739,7 +4726,6 @@ class _BookSeatState extends State<BookSeat> {
         //   ),
         // ],
       ),
-
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -4750,7 +4736,8 @@ class _BookSeatState extends State<BookSeat> {
                 // Journey Details Card (same as before)
                 Card(
                   elevation: 4,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
@@ -4758,7 +4745,8 @@ class _BookSeatState extends State<BookSeat> {
                       children: [
                         const Text(
                           "Journey Details",
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 12),
                         Row(
@@ -4766,12 +4754,14 @@ class _BookSeatState extends State<BookSeat> {
                           children: [
                             Text(
                               widget.sourceCity,
-                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                             const Icon(Icons.arrow_forward),
                             Text(
                               widget.destinationCity,
-                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -4783,7 +4773,8 @@ class _BookSeatState extends State<BookSeat> {
                         const Divider(height: 24),
                         const Text(
                           "Boarding & Dropping",
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 10),
                         Text("Boarding: ${widget.selectedBoardingPoint}"),
@@ -4794,7 +4785,8 @@ class _BookSeatState extends State<BookSeat> {
                           children: [
                             const Text(
                               "Total Amount:",
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                             // Text(
                             //   "₹${totalAmount.toStringAsFixed(2)}",
@@ -4833,8 +4825,7 @@ class _BookSeatState extends State<BookSeat> {
                         const Text(
                           "Passenger & Seat Details",
                           style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 12),
 
@@ -4861,12 +4852,15 @@ class _BookSeatState extends State<BookSeat> {
                                 ),
                                 const SizedBox(height: 8),
                                 Text("Seat: ${seat['SeatName']}"),
-                                Text("Type: ${seat['SeatType'] == 1 ? 'Sleeper' : 'Seater'}"),
+                                Text(
+                                    "Type: ${seat['SeatType'] == 1 ? 'Sleeper' : 'Seater'}"),
                                 // Text("Fare: ₹${seat['Price']['OfferedPrice']}"),
 
-                                Text("Fare: ₹${_calculatePriceWithCommission(seat['Price']['OfferedPrice'])}"),
+                                Text(
+                                    "Fare: ₹${_calculatePriceWithCommission(seat['Price']['OfferedPrice'])}"),
                                 const SizedBox(height: 8),
-                                Text("Age: ${passenger['Age']} | Gender: ${passenger['Gender'] == "1" ? "Male" : "Female"}"),
+                                Text(
+                                    "Age: ${passenger['Age']} | Gender: ${passenger['Gender'] == "1" ? "Male" : "Female"}"),
                                 Text("Phone: ${passenger['Phoneno']}"),
                                 Text("Email: ${passenger['Email']}"),
                                 if (passenger['LeadPassenger'] == true)
@@ -4893,18 +4887,23 @@ class _BookSeatState extends State<BookSeat> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.redAccent.shade700,
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
                   ),
                   child: _isLoading
                       ? const SizedBox(
-                    height: 24,
-                    width: 24,
-                    child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
-                  )
+                          height: 24,
+                          width: 24,
+                          child: CircularProgressIndicator(
+                              color: Colors.white, strokeWidth: 2),
+                        )
                       : const Text(
-                    "PROCEED TO PAY",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
+                          "PROCEED TO PAY",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
                 ),
                 const SizedBox(height: 16),
                 Text(
@@ -4917,8 +4916,7 @@ class _BookSeatState extends State<BookSeat> {
               ],
             ),
           ),
-          if (_isLoading)
-            const Center(child: CircularProgressIndicator()),
+          if (_isLoading) const Center(child: CircularProgressIndicator()),
         ],
       ),
     );

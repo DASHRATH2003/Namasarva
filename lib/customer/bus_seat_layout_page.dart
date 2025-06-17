@@ -1254,14 +1254,7 @@
 //   }
 // }
 
-
-
-
-
 // mussy
-
-
-
 
 import 'dart:async';
 import 'dart:convert';
@@ -1283,7 +1276,18 @@ class SeatLayoutPage extends StatefulWidget {
   final String departureTime;
   final dynamic cancelationPolicies;
 
-  const SeatLayoutPage({super.key, required this.resultIndex, required this.traceId, required this.sourceCity, required this.destinationCity, required this.journeyDate, required this.travelName, required this.busType, required this.arrivalTime, required this.departureTime, required this.cancelationPolicies});
+  const SeatLayoutPage(
+      {super.key,
+      required this.resultIndex,
+      required this.traceId,
+      required this.sourceCity,
+      required this.destinationCity,
+      required this.journeyDate,
+      required this.travelName,
+      required this.busType,
+      required this.arrivalTime,
+      required this.departureTime,
+      required this.cancelationPolicies});
 
   @override
   _SeatLayoutPageState createState() => _SeatLayoutPageState();
@@ -1295,11 +1299,11 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
   Map<String, dynamic>? _seatLayoutData;
   List<Map<String, dynamic>> _selectedSeats = []; // To track selected seats
   static const int maxSeatSelection = 6;
-  bool _isSeatSummaryVisible = false; // Flag to toggle the seat summary visibility
+  bool _isSeatSummaryVisible =
+      false; // Flag to toggle the seat summary visibility
   String? _temporaryPrice;
   List<dynamic>? cancellationCharges;
   double _commission = 0;
-
 
   @override
   void initState() {
@@ -1338,8 +1342,6 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
     return price * (1 + _commission / 100);
   }
 
-
-
   // @override
   // void initState() {
   //   super.initState();
@@ -1348,7 +1350,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
 
   Future<void> _fetchSeatLayout() async {
     // final String apiUrl = "https://bus.srdvapi.com/v5/rest/GetSeatLayOut";
-    const String apiUrl = "http://65.0.115.185/bus-api/GetSeatLayOut";
+    const String apiUrl =
+        "https://namma-savaari-api-backend-9mpl.vercel.app/get-seat-layout";
 
     final Map<String, dynamic> requestBody = {
       "ClientId": "180187",
@@ -1450,8 +1453,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
             ...seat,
             'OfferedPriceRoundedOff': _calculatePriceWithCommission(
                 seat['Price']?['OfferedPriceRoundedOff'] ?? 0),
-            'tempPrice': "₹${_calculatePriceWithCommission(
-                seat['Price']?['OfferedPriceRoundedOff'] ?? 0).toStringAsFixed(2)}",
+            'tempPrice':
+                "₹${_calculatePriceWithCommission(seat['Price']?['OfferedPriceRoundedOff'] ?? 0).toStringAsFixed(2)}",
           });
         } else {
           _showMaxSelectionDialog();
@@ -1475,47 +1478,48 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
     });
   }
 
-
-
   void _showMaxSelectionDialog() {
     showDialog(
       context: context,
-      builder: (context) =>
-          AlertDialog(
-            title: Icon(Icons.airline_seat_recline_extra, size: 50,
-              color: Colors.indigo[300],),
-            content: const Text(
-              "You can select a maximum of $maxSeatSelection seats.",
-              style: TextStyle(color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold),),
-            actions: [
-              Center(
-                child: SizedBox(
-                  height: 50,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.pop(context), // Close the dialog
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.redAccent.shade700,
-                      // Set the button color
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            8), // Optional: Rounded corners
-                      ),
-                    ),
-                    child: const Text(
-                      "Okay",
-                      style: TextStyle(color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight
-                              .bold), // Optional: Customize text color
-                    ),
+      builder: (context) => AlertDialog(
+        title: Icon(
+          Icons.airline_seat_recline_extra,
+          size: 50,
+          color: Colors.indigo[300],
+        ),
+        content: const Text(
+          "You can select a maximum of $maxSeatSelection seats.",
+          style: TextStyle(
+              color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          Center(
+            child: SizedBox(
+              height: 50,
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () => Navigator.pop(context), // Close the dialog
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.redAccent.shade700,
+                  // Set the button color
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(8), // Optional: Rounded corners
                   ),
                 ),
-              )
-            ],
-          ),
+                child: const Text(
+                  "Okay",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight:
+                          FontWeight.bold), // Optional: Customize text color
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -1529,7 +1533,9 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -1584,7 +1590,6 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-
                       ],
                     ),
                   );
@@ -1596,8 +1601,6 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
       },
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -1622,8 +1625,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.normal,
-                color: Colors
-                    .white70, // Slightly lighter white for the subtitle
+                color:
+                    Colors.white70, // Slightly lighter white for the subtitle
               ),
             ),
           ],
@@ -1632,126 +1635,129 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _errorMessage.isNotEmpty
-          ? Center(child: Text(_errorMessage))
-          : _seatLayoutData != null
-          ? Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            if (_temporaryPrice != null)
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                alignment: Alignment.center,
-                color: Colors.redAccent.shade700,
-                child: Text(
-                  _temporaryPrice!,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: _buildSeatRows(),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10), // Spacing before the journey date container
-
-          ],
-        ),
-      )
-          : const Center(
-        child: Text(
-          "No data available.",
-          style: TextStyle(fontSize: 16, color: Colors.red),
-        ),
-      ),
-      bottomNavigationBar: _isSeatSummaryVisible
-          ? GestureDetector(
-        onTap: _showSeatSelectionDialog,
-        child: Container(
-          color: Colors.white,
-          padding: const EdgeInsets.all(16.0),
-          height: 150,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Seats: ${_selectedSeats.length}",
-                    style: const TextStyle(fontSize: 20,color: Colors.black),
-                  ),
-                  // Text(
-                  //   "Total: ₹${_selectedSeats.fold(0.0, (sum, seat) => sum +
-                  //       (seat['OfferedPriceRoundedOff'] ?? 0))
-                  //       .toStringAsFixed(2)}",
-                  //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.black),
-                  // ),
-                  Text(
-                    "Total: ₹${_selectedSeats.fold(0.0, (sum, seat) => sum +
-                        (seat['OfferedPriceRoundedOff'] ?? 0)).toStringAsFixed(0)}",
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),
-                  ),
-                ],
-              ),
-              const Spacer(),
-
-              Center(
-                child: SizedBox(
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.redAccent.shade700
-                    ),
-                    onPressed: () {
-                      print("$_selectedSeats");
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BoardingDroppingPage(
-                            resultIndex: widget.resultIndex,
-                            traceId: widget.traceId,
-                            sourceCity: widget.sourceCity,
-                            destinationCity: widget.destinationCity,
-                            journeyDate: widget.journeyDate,
-                            travelName: widget.travelName,
-                            busType: widget.busType,
-                            arrivalTime: widget.arrivalTime,
-                            departureTime: widget.departureTime,
-                            selectedSeats: _selectedSeats,
+              ? Center(child: Text(_errorMessage))
+              : _seatLayoutData != null
+                  ? Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          if (_temporaryPrice != null)
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 10.0),
+                              alignment: Alignment.center,
+                              color: Colors.redAccent.shade700,
+                              child: Text(
+                                _temporaryPrice!,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: _buildSeatRows(),
+                              ),
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      "Boarding & Dropping Point Selection",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold
+                          const SizedBox(
+                              height:
+                                  10), // Spacing before the journey date container
+                        ],
+                      ),
+                    )
+                  : const Center(
+                      child: Text(
+                        "No data available.",
+                        style: TextStyle(fontSize: 16, color: Colors.red),
                       ),
                     ),
-                  ),
+      bottomNavigationBar: _isSeatSummaryVisible
+          ? GestureDetector(
+              onTap: _showSeatSelectionDialog,
+              child: Container(
+                color: Colors.white,
+                padding: const EdgeInsets.all(16.0),
+                height: 150,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Seats: ${_selectedSeats.length}",
+                          style: const TextStyle(
+                              fontSize: 20, color: Colors.black),
+                        ),
+                        // Text(
+                        //   "Total: ₹${_selectedSeats.fold(0.0, (sum, seat) => sum +
+                        //       (seat['OfferedPriceRoundedOff'] ?? 0))
+                        //       .toStringAsFixed(2)}",
+                        //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.black),
+                        // ),
+                        Text(
+                          "Total: ₹${_selectedSeats.fold(0.0, (sum, seat) => sum + (seat['OfferedPriceRoundedOff'] ?? 0)).toStringAsFixed(0)}",
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.black),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    Center(
+                      child: SizedBox(
+                        height: 50,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.redAccent.shade700),
+                          onPressed: () {
+                            print("$_selectedSeats");
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BoardingDroppingPage(
+                                  resultIndex: widget.resultIndex,
+                                  traceId: widget.traceId,
+                                  sourceCity: widget.sourceCity,
+                                  destinationCity: widget.destinationCity,
+                                  journeyDate: widget.journeyDate,
+                                  travelName: widget.travelName,
+                                  busType: widget.busType,
+                                  arrivalTime: widget.arrivalTime,
+                                  departureTime: widget.departureTime,
+                                  selectedSeats: _selectedSeats,
+                                ),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            "Boarding & Dropping Point Selection",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      )
+            )
           : null,
     );
   }
 
 // with Space
   List<Widget> _buildSeatRows() {
-    final seatDetails = _seatLayoutData?['Result']?['SeatLayout']?['SeatLayoutDetails']?['Layout']?['seatDetails'];
+    final seatDetails = _seatLayoutData?['Result']?['SeatLayout']
+        ?['SeatLayoutDetails']?['Layout']?['seatDetails'];
     if (seatDetails == null) {
       return [const Text("No seat details available")];
     }
@@ -1796,7 +1802,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
       const Center(
         child: Text(
           "About Seat Types",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.black),
+          style: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
         ),
       ),
       const SizedBox(height: 20), // Space below the text
@@ -1807,9 +1814,7 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
-            boxShadow: const [
-
-            ],
+            boxShadow: const [],
           ),
           child: Column(
             children: [
@@ -1822,32 +1827,45 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                       child: Center(
                         child: Text(
                           "Type",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.black),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
                         ),
                       ),
                     ),
-                    VerticalDivider(color: Colors.grey, thickness: 1), // Vertical divider
+                    VerticalDivider(
+                        color: Colors.grey, thickness: 1), // Vertical divider
                     Expanded(
                       child: Center(
                         child: Text(
                           "Seater",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.black),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
                         ),
                       ),
                     ),
-                    VerticalDivider(color: Colors.grey, thickness: 1), // Vertical divider
+                    VerticalDivider(
+                        color: Colors.grey, thickness: 1), // Vertical divider
                     Expanded(
                       child: Center(
                         child: Text(
                           "Sleeper",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.black),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              const Divider(color: Colors.grey, thickness: 1), // Horizontal divider below the first row
+              const Divider(
+                  color: Colors.grey,
+                  thickness: 1), // Horizontal divider below the first row
 
               // Second row with "Available" and custom containers
               SizedBox(
@@ -1858,11 +1876,15 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                       child: Center(
                         child: Text(
                           "Available",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.black),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
                         ),
                       ),
                     ),
-                    const VerticalDivider(color: Colors.grey, thickness: 1), // Vertical divider
+                    const VerticalDivider(
+                        color: Colors.grey, thickness: 1), // Vertical divider
                     Expanded(
                       child: Center(
                         child: SizedBox(
@@ -1879,7 +1901,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: Colors.black, // Border color for available seats
+                                        color: Colors
+                                            .black, // Border color for available seats
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(5),
@@ -1897,7 +1920,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: Colors.black, // Border color for available seats
+                                        color: Colors
+                                            .black, // Border color for available seats
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(5),
@@ -1915,7 +1939,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: Colors.black, // Border color for available seats
+                                        color: Colors
+                                            .black, // Border color for available seats
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(5),
@@ -1933,7 +1958,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: Colors.black, // Border color for available seats
+                                        color: Colors
+                                            .black, // Border color for available seats
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(5),
@@ -1947,7 +1973,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                         ),
                       ),
                     ),
-                    const VerticalDivider(color: Colors.grey, thickness: 1), // Vertical divider
+                    const VerticalDivider(
+                        color: Colors.grey, thickness: 1), // Vertical divider
                     Expanded(
                       child: Center(
                         child: Container(
@@ -1955,7 +1982,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                           height: 102,
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: Colors.black, // Border color for available seats
+                              color: Colors
+                                  .black, // Border color for available seats
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
@@ -1967,7 +1995,9 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                   ],
                 ),
               ),
-              const Divider(color: Colors.grey, thickness: 1), // Horizontal divider below the second row
+              const Divider(
+                  color: Colors.grey,
+                  thickness: 1), // Horizontal divider below the second row
 
               // Rows 3 to 5 with specific labels and custom containers
               Expanded(
@@ -1981,12 +2011,21 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                             Expanded(
                               child: Center(
                                 child: Text(
-                                  ["Already Booked", "Only for Female", "Only for Male"][i], // Dynamic text for each row
-                                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.black),
+                                  [
+                                    "Already Booked",
+                                    "Only for Female",
+                                    "Only for Male"
+                                  ][i], // Dynamic text for each row
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
                                 ),
                               ),
                             ),
-                            const VerticalDivider(color: Colors.grey, thickness: 1), // Vertical divider
+                            const VerticalDivider(
+                                color: Colors.grey,
+                                thickness: 1), // Vertical divider
                             Expanded(
                               child: Center(
                                 child: SizedBox(
@@ -2004,14 +2043,19 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                             decoration: BoxDecoration(
                                               border: Border.all(
                                                 color: i == 0
-                                                    ? Colors.grey.shade300 // Already Booked
+                                                    ? Colors.grey
+                                                        .shade300 // Already Booked
                                                     : i == 1
-                                                    ? Colors.pink.shade400 // Only for Female
-                                                    : const Color(0xFF4A90E2), // Only for Male
+                                                        ? Colors.pink
+                                                            .shade400 // Only for Female
+                                                        : const Color(
+                                                            0xFF4A90E2), // Only for Male
                                                 width: 2, // Border width
                                               ),
-                                              borderRadius: BorderRadius.circular(5),
-                                              color: Colors.white, // Background color
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: Colors
+                                                  .white, // Background color
                                             ),
                                           ),
                                         ),
@@ -2026,14 +2070,19 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                             decoration: BoxDecoration(
                                               border: Border.all(
                                                 color: i == 0
-                                                    ? Colors.grey.shade300 // Already Booked
+                                                    ? Colors.grey
+                                                        .shade300 // Already Booked
                                                     : i == 1
-                                                    ? Colors.pink.shade400 // Only for Female
-                                                    : const Color(0xFF4A90E2), // Only for Male
+                                                        ? Colors.pink
+                                                            .shade400 // Only for Female
+                                                        : const Color(
+                                                            0xFF4A90E2), // Only for Male
                                                 width: 2, // Border width
                                               ),
-                                              borderRadius: BorderRadius.circular(5),
-                                              color: Colors.white, // Background color
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: Colors
+                                                  .white, // Background color
                                             ),
                                           ),
                                         ),
@@ -2048,14 +2097,19 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                             decoration: BoxDecoration(
                                               border: Border.all(
                                                 color: i == 0
-                                                    ? Colors.grey.shade300 // Already Booked
+                                                    ? Colors.grey
+                                                        .shade300 // Already Booked
                                                     : i == 1
-                                                    ? Colors.pink.shade400 // Only for Female
-                                                    : const Color(0xFF4A90E2), // Only for Male
+                                                        ? Colors.pink
+                                                            .shade400 // Only for Female
+                                                        : const Color(
+                                                            0xFF4A90E2), // Only for Male
                                                 width: 2, // Border width
                                               ),
-                                              borderRadius: BorderRadius.circular(5),
-                                              color: Colors.white, // Background color
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: Colors
+                                                  .white, // Background color
                                             ),
                                           ),
                                         ),
@@ -2070,14 +2124,19 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                             decoration: BoxDecoration(
                                               border: Border.all(
                                                 color: i == 0
-                                                    ? Colors.grey.shade300 // Already Booked
+                                                    ? Colors.grey
+                                                        .shade300 // Already Booked
                                                     : i == 1
-                                                    ? Colors.pink.shade400 // Only for Female
-                                                    : const Color(0xFF4A90E2), // Only for Male
+                                                        ? Colors.pink
+                                                            .shade400 // Only for Female
+                                                        : const Color(
+                                                            0xFF4A90E2), // Only for Male
                                                 width: 2, // Border width
                                               ),
-                                              borderRadius: BorderRadius.circular(5),
-                                              color: Colors.white, // Background color
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: Colors
+                                                  .white, // Background color
                                             ),
                                           ),
                                         ),
@@ -2087,7 +2146,9 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                 ),
                               ),
                             ),
-                            const VerticalDivider(color: Colors.grey, thickness: 1), // Vertical divider
+                            const VerticalDivider(
+                                color: Colors.grey,
+                                thickness: 1), // Vertical divider
                             Expanded(
                               child: Center(
                                 child: Container(
@@ -2096,10 +2157,13 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       color: i == 0
-                                          ? Colors.grey.shade300 // Already Booked
+                                          ? Colors
+                                              .grey.shade300 // Already Booked
                                           : i == 1
-                                          ? Colors.pink.shade400 // Only for Female
-                                          : const Color(0xFF4A90E2), // Only for Male
+                                              ? Colors.pink
+                                                  .shade400 // Only for Female
+                                              : const Color(
+                                                  0xFF4A90E2), // Only for Male
                                       width: 2, // Border width
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -2111,7 +2175,11 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                           ],
                         ),
                       ),
-                      if (i < 2) const Divider(color: Colors.grey, thickness: 1), // Horizontal divider except for the last row
+                      if (i < 2)
+                        const Divider(
+                            color: Colors.grey,
+                            thickness:
+                                1), // Horizontal divider except for the last row
                     ],
                   ],
                 ),
@@ -2120,7 +2188,9 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
           ),
         ),
       ),
-      const SizedBox(height: 30,),
+      const SizedBox(
+        height: 30,
+      ),
       const Center(
         child: Text(
           "Cancellation Policies:",
@@ -2171,11 +2241,13 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: "${charge['CancellationCharge']}", // Value
+                                  text:
+                                      "${charge['CancellationCharge']}", // Value
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.redAccent.shade700, // Different color for value
+                                    color: Colors.redAccent
+                                        .shade700, // Different color for value
                                   ),
                                 ),
                               ],
@@ -2194,11 +2266,13 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: "${charge['CancellationChargeType']}", // Value
+                                  text:
+                                      "${charge['CancellationChargeType']}", // Value
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
-                                    color: Colors.grey, // Different color for value
+                                    color: Colors
+                                        .grey, // Different color for value
                                   ),
                                 ),
                               ],
@@ -2221,7 +2295,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
-                                    color: Colors.grey, // Different color for value
+                                    color: Colors
+                                        .grey, // Different color for value
                                   ),
                                 ),
                               ],
@@ -2244,7 +2319,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
-                                    color: Colors.grey, // Different color for value
+                                    color: Colors
+                                        .grey, // Different color for value
                                   ),
                                 ),
                               ],
@@ -2267,7 +2343,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
-                                    color: Colors.grey, // Different color for value
+                                    color: Colors
+                                        .grey, // Different color for value
                                   ),
                                 ),
                               ],
@@ -2290,7 +2367,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
-                                    color: Colors.grey, // Different color for value
+                                    color: Colors
+                                        .grey, // Different color for value
                                   ),
                                 ),
                               ],
@@ -2327,13 +2405,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
           ),
         ),
       ),
-
-
     ];
   }
-
-
-
 
   Widget _buildLowerDeck(List<List<dynamic>> lowerSeatRows) {
     return _buildSeatDeck("Lower Deck", lowerSeatRows);
@@ -2342,6 +2415,7 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
   Widget _buildUpperDeck(List<List<dynamic>> upperSeatRows) {
     return _buildSeatDeck("Upper Deck", upperSeatRows);
   }
+
   Widget _buildSeatDeck(String title, List<List<dynamic>> seatRows) {
     // Reverse the order of the seat rows
     List<List<dynamic>> reversedRows = seatRows.reversed.toList();
@@ -2383,10 +2457,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
           top: Radius.circular(12), // Top border radius
           bottom: Radius.circular(12),
         ),
-        boxShadow: [
-        ],
+        boxShadow: [],
       ),
-
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -2405,15 +2477,20 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                     bool isSelectable = seat['SeatStatus'] ?? true;
                     bool isMaleSeat = seat['IsMalesSeat'] ?? false;
                     bool isLadiesSeat = seat['IsLadiesSeat'] ?? false;
-                    double seatPrice = seat['Price']?['OfferedPriceRoundedOff']?.toDouble() ?? 0.0;
+                    double seatPrice =
+                        seat['Price']?['OfferedPriceRoundedOff']?.toDouble() ??
+                            0.0;
 
                     Color borderColor = isMaleSeat
                         ? const Color(0xFF4A90E2) // Border color for male seats
                         : isLadiesSeat
-                        ? Colors.pink.shade400 // Border color for ladies seats
-                        : Colors.black; // Default border color
+                            ? Colors
+                                .pink.shade400 // Border color for ladies seats
+                            : Colors.black; // Default border color
 
-                    Color seatColor = !isSelectable ? Colors.grey.shade300 : Colors.white; // Default seat color
+                    Color seatColor = !isSelectable
+                        ? Colors.grey.shade300
+                        : Colors.white; // Default seat color
 
                     Widget seatWidget;
 
@@ -2421,7 +2498,10 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                     if (seat['SeatType'] == 1) {
                       // Custom stacked layout for SeatType 1 (medium size)
                       seatWidget = Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0), // Space between seats (top, bottom, left, right)
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 2.0,
+                            horizontal:
+                                2.0), // Space between seats (top, bottom, left, right)
                         child: SizedBox(
                           width: 30, // Reduced width for medium size
                           height: 30, // Reduced height for medium size
@@ -2440,7 +2520,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                         width: 0.8,
                                       ),
                                       borderRadius: BorderRadius.circular(5),
-                                      color: _selectedSeats.any((s) => s['SeatName'] == seat['SeatName'])
+                                      color: _selectedSeats.any((s) =>
+                                              s['SeatName'] == seat['SeatName'])
                                           ? Colors.green
                                           : seatColor,
                                     ),
@@ -2460,7 +2541,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                         width: 0.8,
                                       ),
                                       borderRadius: BorderRadius.circular(5),
-                                      color: _selectedSeats.any((s) => s['SeatName'] == seat['SeatName'])
+                                      color: _selectedSeats.any((s) =>
+                                              s['SeatName'] == seat['SeatName'])
                                           ? Colors.green
                                           : seatColor,
                                     ),
@@ -2480,7 +2562,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                         width: 0.8,
                                       ),
                                       borderRadius: BorderRadius.circular(5),
-                                      color: _selectedSeats.any((s) => s['SeatName'] == seat['SeatName'])
+                                      color: _selectedSeats.any((s) =>
+                                              s['SeatName'] == seat['SeatName'])
                                           ? Colors.green
                                           : seatColor,
                                     ),
@@ -2500,7 +2583,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                         width: 0.8,
                                       ),
                                       borderRadius: BorderRadius.circular(5),
-                                      color: _selectedSeats.any((s) => s['SeatName'] == seat['SeatName'])
+                                      color: _selectedSeats.any((s) =>
+                                              s['SeatName'] == seat['SeatName'])
                                           ? Colors.green
                                           : seatColor,
                                     ),
@@ -2514,12 +2598,16 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                     } else if (seat['SeatType'] == 2) {
                       // Custom layout for SeatType 2
                       seatWidget = Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0), // Space between seats (top, bottom, left, right)
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 4.0,
+                            horizontal:
+                                4.0), // Space between seats (top, bottom, left, right)
                         child: Container(
                           width: 30,
                           height: 82,
                           decoration: BoxDecoration(
-                            color: _selectedSeats.any((s) => s['SeatName'] == seat['SeatName'])
+                            color: _selectedSeats.any(
+                                    (s) => s['SeatName'] == seat['SeatName'])
                                 ? Colors.green
                                 : seatColor,
                             border: Border.all(
@@ -2531,7 +2619,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                           child: Center(
                             child: Text(
                               seat['SeatName'],
-                              style: const TextStyle(color: Colors.black,fontSize: 8),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 8),
                             ),
                           ),
                         ),
@@ -2542,7 +2631,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                         width: 40,
                         height: 40,
                         decoration: BoxDecoration(
-                          color: _selectedSeats.any((s) => s['SeatName'] == seat['SeatName'])
+                          color: _selectedSeats
+                                  .any((s) => s['SeatName'] == seat['SeatName'])
                               ? Colors.green
                               : seatColor,
                           border: Border.all(
@@ -2561,9 +2651,12 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                     }
 
                     return GestureDetector(
-                      onTap: isSelectable ? () => _toggleSeatSelection(seat) : null,
+                      onTap: isSelectable
+                          ? () => _toggleSeatSelection(seat)
+                          : null,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4.0), // Space between seats
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 4.0), // Space between seats
                         child: Column(
                           children: [
                             // seatWidget,
@@ -2582,9 +2675,12 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                                   ? "Sold"
                                   : "₹${_calculatePriceWithCommission(seatPrice).toStringAsFixed(0)}",
                               style: TextStyle(
-                                color: !isSelectable ? Colors.green : Colors.black,
+                                color:
+                                    !isSelectable ? Colors.green : Colors.black,
                                 fontSize: 10,
-                                fontWeight: !isSelectable ? FontWeight.bold : FontWeight.normal,
+                                fontWeight: !isSelectable
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
                               ),
                             ),
                           ],
@@ -2594,7 +2690,8 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
                   }).toList(),
                 ),
                 // Add a SizedBox(width: 50) after the first column if all seats are of SeatType == 2 or if there are mixed seat types
-                if ((isAllSeatType2 || hasMixedSeatTypes) && i == 0) const SizedBox(width: 50),
+                if ((isAllSeatType2 || hasMixedSeatTypes) && i == 0)
+                  const SizedBox(width: 50),
               ],
             ],
           ),
@@ -2627,6 +2724,3 @@ class CommissionProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
-
-
-

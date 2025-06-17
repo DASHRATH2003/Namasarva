@@ -409,7 +409,6 @@
 //   }
 // }
 
-
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -424,7 +423,8 @@ class BusListPage extends StatefulWidget {
   final String SourceCityId;
   final String destinationCityId;
 
-  const BusListPage({super.key, 
+  const BusListPage({
+    super.key,
     required this.sourceCity,
     required this.destinationCity,
     required this.journeyDate,
@@ -442,8 +442,6 @@ class _BusListPageState extends State<BusListPage> {
   String _errorMessage = "";
   String? _traceId;
   double _commission = 0;
-
-
 
   @override
   void initState() {
@@ -473,15 +471,18 @@ class _BusListPageState extends State<BusListPage> {
   }
 
   Future<void> _fetchBusResults() async {
-    const String apiUrl = "http://65.0.115.185/bus-api/search";
+    const String apiUrl =
+        "https://namma-savaari-api-backend-9mpl.vercel.app/search";
     final Map<String, dynamic> requestBody = {
       "ClientId": "180187",
       "UserName": "Namma434",
       "Password": "Namma@4341",
       "source_city": widget.sourceCity,
-      "source_code": widget.SourceCityId, // Replace with the correct source code
+      "source_code":
+          widget.SourceCityId, // Replace with the correct source code
       "destination_city": widget.destinationCity,
-      "destination_code": widget.destinationCityId, // Replace with the correct destination code
+      "destination_code":
+          widget.destinationCityId, // Replace with the correct destination code
       "depart_date": widget.journeyDate,
     };
     final headers = {
@@ -512,12 +513,14 @@ class _BusListPageState extends State<BusListPage> {
       // }
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        print("Response Data: $data"); // Debugging output to check the structure
+        print(
+            "Response Data: $data"); // Debugging output to check the structure
         setState(() {
           _busResults = data['Result']?['BusResults'] ?? [];
           // _busResults = data['Result'] ?? []; // Handle case where 'Result' might be null
           // _traceId = data['TraceId']?.toString(); // Safely convert TraceId to string
-          _traceId = data['Result']?['TraceId']?.toString(); // Correct location for TraceId
+          _traceId = data['Result']?['TraceId']
+              ?.toString(); // Correct location for TraceId
           _isLoading = false;
         });
       } else {
@@ -599,7 +602,8 @@ class _BusListPageState extends State<BusListPage> {
       appBar: AppBar(
         backgroundColor: Colors.redAccent.shade700,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween, // Space between the texts
+          mainAxisAlignment:
+              MainAxisAlignment.spaceBetween, // Space between the texts
           children: [
             // Column for Source, Destination, and Bus Results
             Column(
@@ -625,17 +629,21 @@ class _BusListPageState extends State<BusListPage> {
             ),
             // Column for Month, Date, and Day
             Column(
-              crossAxisAlignment: CrossAxisAlignment.end, // Align text to the right
+              crossAxisAlignment:
+                  CrossAxisAlignment.end, // Align text to the right
               children: [
                 // Container for the Month and Date
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), // Add padding inside the container
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6), // Add padding inside the container
                   decoration: BoxDecoration(
                     color: Colors.white, // White background color
                     borderRadius: BorderRadius.circular(12), // Rounded corners
                   ),
                   child: Text(
-                    DateFormat('MMM dd').format(DateTime.parse(widget.journeyDate)), // Format month and date
+                    DateFormat('MMM dd').format(DateTime.parse(
+                        widget.journeyDate)), // Format month and date
                     style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
@@ -645,9 +653,13 @@ class _BusListPageState extends State<BusListPage> {
                 ),
                 // Text for the Day
                 Padding(
-                  padding: const EdgeInsets.only(top: 4.0, right: 19), // Add some space between the container and the day text
+                  padding: const EdgeInsets.only(
+                      top: 4.0,
+                      right:
+                          19), // Add some space between the container and the day text
                   child: Text(
-                    DateFormat('EEE').format(DateTime.parse(widget.journeyDate)), // Format day (e.g., "Mon", "Tue")
+                    DateFormat('EEE').format(DateTime.parse(
+                        widget.journeyDate)), // Format day (e.g., "Mon", "Tue")
                     style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.normal,
@@ -661,208 +673,242 @@ class _BusListPageState extends State<BusListPage> {
         ),
       ),
 
-
-
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _errorMessage.isNotEmpty
-          ? Center(child: Text(_errorMessage))
-          : ListView.builder(
-        itemCount: _busResults.length,
-        itemBuilder: (context, index) {
-          final bus = _busResults[index];
-          return InkWell(
-            onTap: () {
-              // Navigate to Seat Layout Page and pass the ResultIndex of the selected bus
-              print("$_traceId");
-              // print("TraceID: ${bus['TraceId']}");
-              print("Selected Bus ResultIndex: ${bus['ResultIndex']}");
-              print(widget.sourceCity); // Use widget.sourceCity directly
-              print(widget.destinationCity); // Use widget.sourceCity directly
-              print(widget.journeyDate); // Use widget.sourceCity directly
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SeatLayoutPage(
-                    // resultIndex: bus['ResultIndex']?.toString() ?? '0', // Use the safe check for ResultIndex
-                    resultIndex: bus['ResultIndex'].toString(), // Pass ResultIndex as a string
-                    traceId: _traceId ?? '', // Pass TraceId from the Result
-                    // traceId: bus['TraceId'].toString(), // Pass TraceId from the Result
-                    sourceCity: widget.sourceCity, // Use widget.sourceCity
-                    destinationCity: widget.destinationCity, // Use widget.sourceCity
-                    journeyDate: widget.journeyDate,
-                    arrivalTime: bus['ArrivalTime'] ?? 'N/A',
-                    departureTime: bus['DepartureTime'] ?? 'N/A',
-                    travelName: bus['TravelName'] ?? 'Unknown Operator',
-                    busType: bus['BusType'] ?? 'N/A',
-                    cancelationPolicies: bus['CancellationPolicies'] ?? 'N/A',
-
-                  ),
-                ),
-              );
-            },
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0), // Adjust margin as needed
-              decoration: BoxDecoration(
-                color: Colors.white, // Set the background color
-                borderRadius: BorderRadius.circular(8.0), // Rounded corners
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    blurRadius: 5,
-                    offset: const Offset(0, 3), // Shadow position
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          _formatTime(bus['DepartureTime']),
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(width: 8), // Space between Arrival and divider
-                        Container(
-                          height: 2, // Height of the divider
-                          width: 15, // Width of the divider
-                          color: Colors.grey, // Divider color
-                        ),
-                        const SizedBox(width: 8), // Space between divider and Departure Time
-                        Text(
-                          _formatTime(bus['ArrivalTime']),
-                          style: const TextStyle(
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const Spacer(), // Push the price text to the right
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 8.0, top: 8.0), // Exact 8 pixels from the right
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min, // Ensure the Row takes up only as much space as needed
-                              children: [
-                                // Text(
-                                //   '₹${bus['Price']['PublishedPriceRoundedOff']} ',
-                                //   style: TextStyle(
-                                //     fontWeight: FontWeight.bold,
-                                //     color: Colors.grey, // Color to highlight the PublishedPrice
-                                //     decoration: TextDecoration.lineThrough, // Strike-through effect
-                                //     decorationColor: Colors.grey, // Color of the strike-through line
-                                //   ),
-                                // ),
-
-                                Text(
-                                  '₹${_calculatePriceWithCommission(bus['Price']['PublishedPriceRoundedOff']).toStringAsFixed(0)}',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey, // Color to highlight the PublishedPrice
-                                    decoration: TextDecoration.lineThrough, // Strike-through effect
-                                    decorationColor: Colors.grey, // Color of the strike-through line
-                                  ),
-                                ),
-                                const SizedBox(width: 4), // Space between cross mark and OfferedPrice
-
-
-                                //Actual Price
-
-                                // Text(
-                                //   '₹${bus['Price']['OfferedPriceRoundedOff']}',
-                                //   style: TextStyle(
-                                //     fontWeight: FontWeight.bold,
-                                //   ),
-                                // ),
-
-                                Text(
-                                  '₹${_calculatePriceWithCommission(bus['Price']['OfferedPriceRoundedOff']).toStringAsFixed(0)}',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green,
-                                  ),
-                                ),
-
-                                //Actual price ofter added client commission
-
-                              ],
+              ? Center(child: Text(_errorMessage))
+              : ListView.builder(
+                  itemCount: _busResults.length,
+                  itemBuilder: (context, index) {
+                    final bus = _busResults[index];
+                    return InkWell(
+                      onTap: () {
+                        // Navigate to Seat Layout Page and pass the ResultIndex of the selected bus
+                        print("$_traceId");
+                        // print("TraceID: ${bus['TraceId']}");
+                        print(
+                            "Selected Bus ResultIndex: ${bus['ResultIndex']}");
+                        print(widget
+                            .sourceCity); // Use widget.sourceCity directly
+                        print(widget
+                            .destinationCity); // Use widget.sourceCity directly
+                        print(widget
+                            .journeyDate); // Use widget.sourceCity directly
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SeatLayoutPage(
+                              // resultIndex: bus['ResultIndex']?.toString() ?? '0', // Use the safe check for ResultIndex
+                              resultIndex: bus['ResultIndex']
+                                  .toString(), // Pass ResultIndex as a string
+                              traceId: _traceId ??
+                                  '', // Pass TraceId from the Result
+                              // traceId: bus['TraceId'].toString(), // Pass TraceId from the Result
+                              sourceCity:
+                                  widget.sourceCity, // Use widget.sourceCity
+                              destinationCity: widget
+                                  .destinationCity, // Use widget.sourceCity
+                              journeyDate: widget.journeyDate,
+                              arrivalTime: bus['ArrivalTime'] ?? 'N/A',
+                              departureTime: bus['DepartureTime'] ?? 'N/A',
+                              travelName:
+                                  bus['TravelName'] ?? 'Unknown Operator',
+                              busType: bus['BusType'] ?? 'N/A',
+                              cancelationPolicies:
+                                  bus['CancellationPolicies'] ?? 'N/A',
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          _calculateTimeDifference(bus['DepartureTime'], bus['ArrivalTime']),
-                          style: const TextStyle(fontSize: 12, color: Colors.grey),
-                        ),
-                        const SizedBox(width: 8), // Small space between the elements
-                        Container(
-                          height: 2, // Height of the divider
-                          width: 2, // Width of the divider
-                          color: Colors.black, // Divider color
-                        ),
-                        const SizedBox(width: 4), // Small space between the elements
-                        Text(
-                          "${bus['AvailableSeats'] ?? "N/A"} Seats",
-                          style: const TextStyle(fontSize: 12, color: Colors.grey),
-                        ),
-                        const Spacer(), // Push the price text to the right
-                        const Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 8.0,), // Exact 8 pixels from the right
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min, // Ensure the Row takes up only as much space as needed
-                              children: [
-                                Text(
-                                  "Onwards",
-                                  style: TextStyle(
-                                    color: Colors.grey, // Color to highlight the PublishedPrice
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ],
+                        );
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 8.0,
+                            horizontal: 10.0), // Adjust margin as needed
+                        decoration: BoxDecoration(
+                          color: Colors.white, // Set the background color
+                          borderRadius:
+                              BorderRadius.circular(8.0), // Rounded corners
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.2),
+                              blurRadius: 5,
+                              offset: const Offset(0, 3), // Shadow position
                             ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    _formatTime(bus['DepartureTime']),
+                                    style: const TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                      width:
+                                          8), // Space between Arrival and divider
+                                  Container(
+                                    height: 2, // Height of the divider
+                                    width: 15, // Width of the divider
+                                    color: Colors.grey, // Divider color
+                                  ),
+                                  const SizedBox(
+                                      width:
+                                          8), // Space between divider and Departure Time
+                                  Text(
+                                    _formatTime(bus['ArrivalTime']),
+                                    style: const TextStyle(
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const Spacer(), // Push the price text to the right
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 8.0,
+                                          top:
+                                              8.0), // Exact 8 pixels from the right
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize
+                                            .min, // Ensure the Row takes up only as much space as needed
+                                        children: [
+                                          // Text(
+                                          //   '₹${bus['Price']['PublishedPriceRoundedOff']} ',
+                                          //   style: TextStyle(
+                                          //     fontWeight: FontWeight.bold,
+                                          //     color: Colors.grey, // Color to highlight the PublishedPrice
+                                          //     decoration: TextDecoration.lineThrough, // Strike-through effect
+                                          //     decorationColor: Colors.grey, // Color of the strike-through line
+                                          //   ),
+                                          // ),
+
+                                          Text(
+                                            '₹${_calculatePriceWithCommission(bus['Price']['PublishedPriceRoundedOff']).toStringAsFixed(0)}',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors
+                                                  .grey, // Color to highlight the PublishedPrice
+                                              decoration: TextDecoration
+                                                  .lineThrough, // Strike-through effect
+                                              decorationColor: Colors
+                                                  .grey, // Color of the strike-through line
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                              width:
+                                                  4), // Space between cross mark and OfferedPrice
+
+                                          //Actual Price
+
+                                          // Text(
+                                          //   '₹${bus['Price']['OfferedPriceRoundedOff']}',
+                                          //   style: TextStyle(
+                                          //     fontWeight: FontWeight.bold,
+                                          //   ),
+                                          // ),
+
+                                          Text(
+                                            '₹${_calculatePriceWithCommission(bus['Price']['OfferedPriceRoundedOff']).toStringAsFixed(0)}',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.green,
+                                            ),
+                                          ),
+
+                                          //Actual price ofter added client commission
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    _calculateTimeDifference(
+                                        bus['DepartureTime'],
+                                        bus['ArrivalTime']),
+                                    style: const TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                  ),
+                                  const SizedBox(
+                                      width:
+                                          8), // Small space between the elements
+                                  Container(
+                                    height: 2, // Height of the divider
+                                    width: 2, // Width of the divider
+                                    color: Colors.black, // Divider color
+                                  ),
+                                  const SizedBox(
+                                      width:
+                                          4), // Small space between the elements
+                                  Text(
+                                    "${bus['AvailableSeats'] ?? "N/A"} Seats",
+                                    style: const TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                  ),
+                                  const Spacer(), // Push the price text to the right
+                                  const Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                        right: 8.0,
+                                      ), // Exact 8 pixels from the right
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize
+                                            .min, // Ensure the Row takes up only as much space as needed
+                                        children: [
+                                          Text(
+                                            "Onwards",
+                                            style: TextStyle(
+                                              color: Colors
+                                                  .grey, // Color to highlight the PublishedPrice
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 15),
+                              Text(
+                                bus['TravelName'] ?? "Unknown Operator",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                  height:
+                                      8), // Add space between TravelName and Time Difference
+                              Text(
+                                "${bus['BusType'] ?? "N/A"}",
+                                style: const TextStyle(
+                                    fontSize: 12, color: Colors.grey),
+                              ), // Add Bus Type field
+                              // SizedBox(height: 8), // Add space between TravelName and Time Difference
+                              // Text(
+                              //   "${bus['CancellationPolicies'] ?? "N/A"}",
+                              //   style: TextStyle(fontSize: 12, color: Colors.grey),
+                              // ), // Add Bus Type field
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 15),
-                    Text(
-                      bus['TravelName'] ?? "Unknown Operator",
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 8), // Add space between TravelName and Time Difference
-                    Text(
-                      "${bus['BusType'] ?? "N/A"}",
-                      style: const TextStyle(fontSize: 12, color: Colors.grey),
-                    ), // Add Bus Type field
-                    // SizedBox(height: 8), // Add space between TravelName and Time Difference
-                    // Text(
-                    //   "${bus['CancellationPolicies'] ?? "N/A"}",
-                    //   style: TextStyle(fontSize: 12, color: Colors.grey),
-                    // ), // Add Bus Type field
-                  ],
+                      ),
+                    );
+                  },
                 ),
-              ),
-            ),
-
-
-          );
-        },
-      ),
     );
   }
 }
-
 
 // Create a commission provider (optional but recommended)
 class CommissionProvider extends ChangeNotifier {

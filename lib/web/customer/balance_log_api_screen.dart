@@ -1,4 +1,3 @@
-
 // Response getting in console
 
 // import 'dart:convert';
@@ -69,8 +68,6 @@
 //   }
 // }
 
-
-
 // trying to print the response ina console
 
 import 'dart:convert';
@@ -89,15 +86,15 @@ class _BalanceLogScreenState extends State<BalanceLogScreen> {
   // Function to fetch the balance log
   Future<void> fetchBalanceLog() async {
     // const String apiUrl = "https://bus.srdvapi.com/v5/rest/BalanceLog";
-    const String apiUrl = "http://3.7.121.234/bus-api/BalanceLog";
-
+    const String apiUrl =
+        "https://namma-savaari-api-backend-9mpl.vercel.app/balance-log";
 
     // Request body
     final Map<String, String> requestBody = {
       "EndUserIp": "157.48.136.69", // Replace with the actual IP
-      "ClientId": "180187",         // Replace with your Client ID
-      "UserName": "Namma434",       // Replace with your User Name
-      "Password": "Namma@4341",     // Replace with your Password
+      "ClientId": "180187", // Replace with your Client ID
+      "UserName": "Namma434", // Replace with your User Name
+      "Password": "Namma@4341", // Replace with your Password
     };
 
     try {
@@ -119,7 +116,8 @@ class _BalanceLogScreenState extends State<BalanceLogScreen> {
           isLoading = false;
         });
       } else {
-        print("Failed to fetch balance log. Status code: ${response.statusCode}");
+        print(
+            "Failed to fetch balance log. Status code: ${response.statusCode}");
         print("Response body: ${response.body}");
         setState(() {
           isLoading = false;
@@ -148,45 +146,42 @@ class _BalanceLogScreenState extends State<BalanceLogScreen> {
       body: isLoading
           ? Center(child: CircularProgressIndicator()) // Show loading indicator
           : balanceLogs.isEmpty
-          ? Center(
-        child: Text(
-          "No data available",
-          style: TextStyle(fontSize: 18),
-        ),
-      )
-          : ListView.builder(
-        itemCount: balanceLogs.length,
-        itemBuilder: (context, index) {
-          final log = balanceLogs[index];
-          return Card(
-            margin: EdgeInsets.all(8.0),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("ID: ${log['ID'] ?? 'N/A'}",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text("Date: ${log['Date'] ?? 'N/A'}"),
-                  Text("Client ID: ${log['ClientID'] ?? 'N/A'}"),
-                  Text("Client Name: ${log['ClientName'] ?? 'N/A'}"),
-                  Text("Detail: ${log['Detail'] ?? 'N/A'}"),
-                  Text("Debit: ${log['Debit'] ?? 'N/A'}"),
-                  Text("Credit: ${log['Credit'] ?? 'N/A'}"),
-                  Text("Balance: ${log['Balance'] ?? 'N/A'}"),
-                  Text("Module: ${log['Module'] ?? 'N/A'}"),
-                  Text("Trace ID: ${log['TraceID'] ?? 'N/A'}"),
-                  Text("Ref ID: ${log['RefID'] ?? 'N/A'}"),
-                  Text("Updated By: ${log['UpdatedBy'] ?? 'N/A'}"),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
+              ? Center(
+                  child: Text(
+                    "No data available",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: balanceLogs.length,
+                  itemBuilder: (context, index) {
+                    final log = balanceLogs[index];
+                    return Card(
+                      margin: EdgeInsets.all(8.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("ID: ${log['ID'] ?? 'N/A'}",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text("Date: ${log['Date'] ?? 'N/A'}"),
+                            Text("Client ID: ${log['ClientID'] ?? 'N/A'}"),
+                            Text("Client Name: ${log['ClientName'] ?? 'N/A'}"),
+                            Text("Detail: ${log['Detail'] ?? 'N/A'}"),
+                            Text("Debit: ${log['Debit'] ?? 'N/A'}"),
+                            Text("Credit: ${log['Credit'] ?? 'N/A'}"),
+                            Text("Balance: ${log['Balance'] ?? 'N/A'}"),
+                            Text("Module: ${log['Module'] ?? 'N/A'}"),
+                            Text("Trace ID: ${log['TraceID'] ?? 'N/A'}"),
+                            Text("Ref ID: ${log['RefID'] ?? 'N/A'}"),
+                            Text("Updated By: ${log['UpdatedBy'] ?? 'N/A'}"),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
     );
   }
 }
-
-
-

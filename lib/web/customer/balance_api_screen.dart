@@ -179,11 +179,7 @@
 // }
 //
 
-
-
 // balance console
-
-
 
 // import 'dart:convert';
 // import 'package:flutter/material.dart';
@@ -253,11 +249,7 @@
 //   }
 // }
 
-
-
 // Balance Fetching on the screen
-
-
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -276,15 +268,15 @@ class _BalanceScreenState extends State<BalanceScreen> {
   // Function to fetch the balance
   Future<void> fetchBalance() async {
     // const String apiUrl = "https://bus.srdvapi.com/v5/rest/Balance";
-    const String apiUrl = "http://3.7.121.234/bus-api/Balance";
-
+    const String apiUrl =
+        "https://namma-savaari-api-backend-9mpl.vercel.app/balance";
 
     // Request body
     final Map<String, String> requestBody = {
       "EndUserIp": "157.48.136.69", // Replace with the actual IP
-      "ClientId": "180187",         // Replace with your Client ID
-      "UserName": "Namma434",       // Replace with your User Name
-      "Password": "Namma@4341",     // Replace with your Password
+      "ClientId": "180187", // Replace with your Client ID
+      "UserName": "Namma434", // Replace with your User Name
+      "Password": "Namma@4341", // Replace with your Password
     };
 
     try {

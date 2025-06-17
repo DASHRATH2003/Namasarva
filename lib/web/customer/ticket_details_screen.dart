@@ -30,11 +30,15 @@ class _BookingScreenState extends State<BookingScreen> {
               height: 55,
               width: 325,
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.pink
-                ),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
                 onPressed: bookSeat,
-                child: const Text('Book',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),),
+                child: const Text(
+                  'Book',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+                ),
               ),
             ),
             const SizedBox(height: 20),
@@ -126,7 +130,7 @@ class _BookingScreenState extends State<BookingScreen> {
                       bottom: 5,
                       left: 5,
                       right: 5,
-                      child:SizedBox(
+                      child: SizedBox(
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                               border: Border.all(
@@ -134,16 +138,16 @@ class _BookingScreenState extends State<BookingScreen> {
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(5),
-                              color: Colors.white
-                          ),
+                              color: Colors.white),
                         ),
-                      ),),
+                      ),
+                    ),
                     Positioned(
                       top: 29,
                       bottom: 5,
                       left: 5,
                       right: 5,
-                      child:SizedBox(
+                      child: SizedBox(
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                               border: Border.all(
@@ -151,16 +155,16 @@ class _BookingScreenState extends State<BookingScreen> {
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(5),
-                              color: Colors.white
-                          ),
+                              color: Colors.white),
                         ),
-                      ),),
+                      ),
+                    ),
                     Positioned(
                       top: 15,
                       bottom: 5,
                       left: 4,
                       right: 30,
-                      child:SizedBox(
+                      child: SizedBox(
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                               border: Border.all(
@@ -168,16 +172,16 @@ class _BookingScreenState extends State<BookingScreen> {
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(5),
-                              color: Colors.white
-                          ),
+                              color: Colors.white),
                         ),
-                      ),),
+                      ),
+                    ),
                     Positioned(
                       top: 15,
                       bottom: 5,
                       left: 30,
                       right: 4,
-                      child:SizedBox(
+                      child: SizedBox(
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                               border: Border.all(
@@ -185,11 +189,10 @@ class _BookingScreenState extends State<BookingScreen> {
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(5),
-                              color: Colors.white
-                          ),
+                              color: Colors.white),
                         ),
-                      ),)
-
+                      ),
+                    )
                   ],
                 ),
               ),

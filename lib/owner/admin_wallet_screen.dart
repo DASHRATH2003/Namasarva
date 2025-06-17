@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-
 class BalanceScreen extends StatefulWidget {
   const BalanceScreen({super.key});
 
@@ -18,15 +17,15 @@ class _BalanceScreenState extends State<BalanceScreen> {
   // Function to fetch the balance
   Future<void> fetchBalance() async {
     // const String apiUrl = "https://bus.srdvapi.com/v5/rest/Balance";
-    const String apiUrl = "http://65.0.115.185/bus-api/Balance";
-
+    const String apiUrl =
+        "https://namma-savaari-api-backend-9mpl.vercel.app/balance";
 
     // Request body
     final Map<String, String> requestBody = {
       "EndUserIp": "157.48.136.69", // Replace with the actual IP
-      "ClientId": "180187",         // Replace with your Client ID
-      "UserName": "Namma434",       // Replace with your User Name
-      "Password": "Namma@4341",     // Replace with your Password
+      "ClientId": "180187", // Replace with your Client ID
+      "UserName": "Namma434", // Replace with your User Name
+      "Password": "Namma@4341", // Replace with your Password
     };
 
     try {
@@ -88,7 +87,8 @@ class _BalanceScreenState extends State<BalanceScreen> {
           children: [
             Card(
               elevation: 4,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -96,12 +96,18 @@ class _BalanceScreenState extends State<BalanceScreen> {
                   children: [
                     Text(
                       "Balance: $balance,",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.redAccent.shade700),
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.redAccent.shade700),
                     ),
                     const SizedBox(height: 10),
                     Text(
                       "Credit Limit: $creditLimit",
-                      style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey),
+                      style: const TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey),
                     ),
                   ],
                 ),

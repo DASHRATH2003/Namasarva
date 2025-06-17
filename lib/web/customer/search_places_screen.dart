@@ -1251,9 +1251,9 @@ class _CitySelectionPageState extends State<CitySelectionPage> {
 
       List<Map<String, dynamic>> recentPairs = [];
 
-      snapshot.docs.forEach((doc) {
+      for (var doc in snapshot.docs) {
         recentPairs.add(doc.data());
-      });
+      }
 
       setState(() {
         _recentCityPairs = recentPairs;

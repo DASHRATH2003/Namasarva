@@ -7,7 +7,8 @@ void main() {
 }
 
 Future<void> _fetchCityList() async {
-  const String url = "http://65.0.115.185:8081/city-list";
+  const String url =
+      "https://namma-savaari-api-backend-9mpl.vercel.app/city-list";
   const Map<String, String> headers = {
     "Content-Type": "application/json",
     "Api-Token": "Namma@90434#34",

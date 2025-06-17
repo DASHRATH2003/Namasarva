@@ -1849,6 +1849,7 @@
 
 // Testing
 
+import 'package:bus_booking_app/web/customer/ticket_details_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -1947,7 +1948,7 @@ class _HomePage_WebState extends State<HomePage_Web> {
     super.initState();
     _pages = [
       HomeScreen(),
-      BookingsScreen_Web(),
+      BookingScreen(),
       HelpScreen(),
       MyAccountScreen(
         onNavigateToHelp: () => _onItemTapped(2),
@@ -1961,8 +1962,6 @@ class _HomePage_WebState extends State<HomePage_Web> {
       _currentIndex = index;
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -2008,7 +2007,8 @@ class _HomePage_WebState extends State<HomePage_Web> {
                 PopupMenuButton<String>(
                   child: TextButton.icon(
                     onPressed: null,
-                    icon: Icon(Icons.account_circle_outlined, color: Colors.black),
+                    icon: Icon(Icons.account_circle_outlined,
+                        color: Colors.black),
                     label: Text(
                       'Account',
                       style: TextStyle(color: Colors.black, fontSize: 16),
@@ -2018,32 +2018,40 @@ class _HomePage_WebState extends State<HomePage_Web> {
                     PopupMenuItem<String>(
                       value: 'Cancel Ticket',
                       child: ListTile(
-                        leading: Icon(Icons.cancel_outlined, color: Colors.black),
-                        title: Text('Cancel Ticket', style: TextStyle(fontSize: 16)),
+                        leading:
+                            Icon(Icons.cancel_outlined, color: Colors.black),
+                        title: Text('Cancel Ticket',
+                            style: TextStyle(fontSize: 16)),
                       ),
                       onTap: () => context.go('/home'),
                     ),
                     PopupMenuItem<String>(
                       value: 'Change Travel Date',
                       child: ListTile(
-                        leading: Icon(Icons.calendar_month_outlined, color: Colors.black),
-                        title: Text('Change Travel Date', style: TextStyle(fontSize: 16)),
+                        leading: Icon(Icons.calendar_month_outlined,
+                            color: Colors.black),
+                        title: Text('Change Travel Date',
+                            style: TextStyle(fontSize: 16)),
                       ),
                       onTap: () => context.go('/home'),
                     ),
                     PopupMenuItem<String>(
                       value: 'Show My Ticket',
                       child: ListTile(
-                        leading: Icon(Icons.confirmation_number_outlined, color: Colors.black),
-                        title: Text('Show My Ticket', style: TextStyle(fontSize: 16)),
+                        leading: Icon(Icons.confirmation_number_outlined,
+                            color: Colors.black),
+                        title: Text('Show My Ticket',
+                            style: TextStyle(fontSize: 16)),
                       ),
                       onTap: () => context.go('/myBookings'),
                     ),
                     PopupMenuItem<String>(
                       value: 'Email/SMS',
                       child: ListTile(
-                        leading: Icon(Icons.email_outlined, color: Colors.black),
-                        title: Text('Email/SMS', style: TextStyle(fontSize: 16)),
+                        leading:
+                            Icon(Icons.email_outlined, color: Colors.black),
+                        title:
+                            Text('Email/SMS', style: TextStyle(fontSize: 16)),
                       ),
                       onTap: () => context.go('/home'),
                     ),
@@ -2052,7 +2060,8 @@ class _HomePage_WebState extends State<HomePage_Web> {
                       value: 'Login/Sign Up',
                       child: ListTile(
                         leading: Icon(Icons.login, color: Colors.black),
-                        title: Text('Login/Sign Up', style: TextStyle(fontSize: 16)),
+                        title: Text('Login/Sign Up',
+                            style: TextStyle(fontSize: 16)),
                       ),
                       onTap: () => context.go('/signin'),
                     ),
@@ -2068,7 +2077,6 @@ class _HomePage_WebState extends State<HomePage_Web> {
           ),
         ],
       ),
-
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -3749,12 +3757,14 @@ class _HomeScreenState extends State<HomeScreen>
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start, // Align "Rate Us" to left
+                          crossAxisAlignment: CrossAxisAlignment
+                              .start, // Align "Rate Us" to left
                           children: [
                             // "Rate Us" Text at the center-left
                             FadeInDown(
                               child: Align(
-                                alignment: Alignment.centerLeft, // Align to left
+                                alignment:
+                                    Alignment.centerLeft, // Align to left
                                 child: Text(
                                   "Rate Us",
                                   style: TextStyle(
@@ -3770,7 +3780,8 @@ class _HomeScreenState extends State<HomeScreen>
                             FadeInLeft(
                               child: Container(
                                 width: double.infinity,
-                                height: 180, // Increased height of the blue container by 20
+                                height:
+                                    180, // Increased height of the blue container by 20
                                 decoration: BoxDecoration(
                                   color: Colors.blue[50],
                                   borderRadius: BorderRadius.circular(20),
@@ -3785,46 +3796,60 @@ class _HomeScreenState extends State<HomeScreen>
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min, // Makes the column take only the needed space
+                                  mainAxisSize: MainAxisSize
+                                      .min, // Makes the column take only the needed space
                                   children: [
                                     Row(
                                       children: [
                                         // Image container
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 10.0,left: 10.0),
+                                          padding: const EdgeInsets.only(
+                                              top: 10.0, left: 10.0),
                                           child: Container(
-                                            height: 100, // Adjusted height for more space
-                                            width: 100, // Adjusted width for more space
+                                            height:
+                                                100, // Adjusted height for more space
+                                            width:
+                                                100, // Adjusted width for more space
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(5), // Added border radius for the image
+                                              borderRadius: BorderRadius.circular(
+                                                  5), // Added border radius for the image
                                               child: Image.asset(
                                                 'assets/reate_review_pic.jpg', // Replace with your image asset
-                                                fit: BoxFit.fill, // Fill the entire space without maintaining aspect ratio
+                                                fit: BoxFit
+                                                    .fill, // Fill the entire space without maintaining aspect ratio
                                               ),
                                             ),
                                           ),
                                         ),
-                                        SizedBox(width: 5), // Increased spacing between image and text
+                                        SizedBox(
+                                            width:
+                                                5), // Increased spacing between image and text
 
                                         // Texts inside the Container
                                         Expanded(
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.center, // Center text vertically
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment
+                                                .center, // Center text vertically
                                             children: [
                                               Text(
                                                 "Enjoying bus booking app?",
                                                 style: TextStyle(
-                                                  fontSize: 15, // Increased font size for visibility
+                                                  fontSize:
+                                                      15, // Increased font size for visibility
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.black,
                                                 ),
                                               ),
-                                              SizedBox(height: 10), // Increased spacing between texts
+                                              SizedBox(
+                                                  height:
+                                                      10), // Increased spacing between texts
                                               Text(
                                                 "Share your thoughts with us and help spread the word to others!",
                                                 style: TextStyle(
-                                                  fontSize: 11, // Increased font size for readability
+                                                  fontSize:
+                                                      11, // Increased font size for readability
                                                   color: Colors.black54,
                                                 ),
                                               ),
@@ -3840,16 +3865,22 @@ class _HomeScreenState extends State<HomeScreen>
                                       width: 400,
                                       child: ElasticIn(
                                         child: ElevatedButton(
-                                          onPressed: () => _showRateDialog(context),
+                                          onPressed: () =>
+                                              _showRateDialog(context),
                                           style: ElevatedButton.styleFrom(
                                             foregroundColor: Colors.white,
-                                            backgroundColor: Colors.redAccent.shade700,
-                                            padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+                                            backgroundColor:
+                                                Colors.redAccent.shade700,
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 60, vertical: 15),
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(30),
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
                                             ),
                                             elevation: 10,
-                                            shadowColor: Colors.redAccent.shade700?.withOpacity(0.5),
+                                            shadowColor: Colors
+                                                .redAccent.shade700
+                                                ?.withOpacity(0.5),
                                           ),
                                           child: Text(
                                             'Rate Now',
@@ -3865,7 +3896,9 @@ class _HomeScreenState extends State<HomeScreen>
                                 ),
                               ),
                             ),
-                            SizedBox(height: 18,),
+                            SizedBox(
+                              height: 18,
+                            ),
                             // Row(
                             //   mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align items to opposite ends
                             //   children: [
@@ -4814,8 +4847,10 @@ class _HomeScreenState extends State<HomeScreen>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,  // Align items to the top
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween, // Even spacing
+                          crossAxisAlignment: CrossAxisAlignment
+                              .start, // Align items to the top
+                          mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween, // Even spacing
                           children: [
                             // Logo & Description
                             Flexible(
@@ -4829,10 +4864,12 @@ class _HomeScreenState extends State<HomeScreen>
                                   ),
                                   SizedBox(height: 10),
                                   SizedBox(
-                                    width: 300,  // Set a fixed width for text to avoid overflow
+                                    width:
+                                        300, // Set a fixed width for text to avoid overflow
                                     child: Text(
                                       "Namma Savaari is India's largest online bus ticket booking service trusted by over 25 million happy customers globally. We offer bookings through our website and mobile apps.",
-                                      style: TextStyle(color: Colors.black87, fontSize: 14),
+                                      style: TextStyle(
+                                          color: Colors.black87, fontSize: 14),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
@@ -4845,9 +4882,19 @@ class _HomeScreenState extends State<HomeScreen>
                               child: buildColumn_footer(
                                 "About Namma Savaari",
                                 [
-                                  {"title": "About us", "destination": "/aboutus"},
-                                  {"title": "Contact us", "destination": "/contactus"},
-                                  {"title": "Namma Savaari on mobile", "destination": "https://play.google.com/store/apps/details?id=com.app.nammasavari.android"},
+                                  {
+                                    "title": "About us",
+                                    "destination": "/aboutus"
+                                  },
+                                  {
+                                    "title": "Contact us",
+                                    "destination": "/contactus"
+                                  },
+                                  {
+                                    "title": "Namma Savaari on mobile",
+                                    "destination":
+                                        "https://play.google.com/store/apps/details?id=com.app.nammasavari.android"
+                                  },
                                 ],
                               ),
                             ),
@@ -4857,8 +4904,14 @@ class _HomeScreenState extends State<HomeScreen>
                               child: buildColumn_footer(
                                 "Info",
                                 [
-                                  {"title": "T&C", "destination": "/termsandcondition"},
-                                  {"title": "Privacy policy", "destination": "/privacypolicy"},
+                                  {
+                                    "title": "T&C",
+                                    "destination": "/termsandcondition"
+                                  },
+                                  {
+                                    "title": "Privacy policy",
+                                    "destination": "/privacypolicy"
+                                  },
                                   {"title": "FAQ", "destination": "/faq"},
                                 ],
                               ),
@@ -4869,16 +4922,29 @@ class _HomeScreenState extends State<HomeScreen>
                               child: buildColumn_footer(
                                 "Social Media",
                                 [
-                                  {"title": "Facebook", "destination": "https://www.facebook.com/people/Namma-Savaari/61573070618808/#"},
-                                  {"title": "Instagram", "destination": "https://www.instagram.com/namma.savaari/?igsh=ODUxbm04ZmRucm13#"},
-                                  {"title": "Twitter", "destination": "https://twitter.com"},  // Provide valid links
-                                  {"title": "LinkedIn", "destination": "https://linkedin.com"},
+                                  {
+                                    "title": "Facebook",
+                                    "destination":
+                                        "https://www.facebook.com/people/Namma-Savaari/61573070618808/#"
+                                  },
+                                  {
+                                    "title": "Instagram",
+                                    "destination":
+                                        "https://www.instagram.com/namma.savaari/?igsh=ODUxbm04ZmRucm13#"
+                                  },
+                                  {
+                                    "title": "Twitter",
+                                    "destination": "https://twitter.com"
+                                  }, // Provide valid links
+                                  {
+                                    "title": "LinkedIn",
+                                    "destination": "https://linkedin.com"
+                                  },
                                 ],
                               ),
                             ),
                           ],
                         ),
-
 
                         SizedBox(height: 20),
 
@@ -4898,7 +4964,8 @@ class _HomeScreenState extends State<HomeScreen>
                                 Row(
                                   children: [
                                     GestureDetector(
-                                      onTap: () => _launchURL("https://www.facebook.com/people/Namma-Savaari/61573070618808/#"),
+                                      onTap: () => _launchURL(
+                                          "https://www.facebook.com/people/Namma-Savaari/61573070618808/#"),
                                       child: Image.asset(
                                         "assets/facebook.png",
                                         height: 30,
@@ -4907,7 +4974,8 @@ class _HomeScreenState extends State<HomeScreen>
                                     ),
                                     SizedBox(width: 20),
                                     GestureDetector(
-                                      onTap: () => _launchURL("https://www.instagram.com/namma.savaari/?igsh=ODUxbm04ZmRucm13#"),
+                                      onTap: () => _launchURL(
+                                          "https://www.instagram.com/namma.savaari/?igsh=ODUxbm04ZmRucm13#"),
                                       child: Image.asset(
                                         "assets/instagram.png",
                                         height: 30,
@@ -4916,7 +4984,8 @@ class _HomeScreenState extends State<HomeScreen>
                                     ),
                                     SizedBox(width: 20),
                                     GestureDetector(
-                                      onTap: () => _launchURL("https://www.linkedin.com"),
+                                      onTap: () => _launchURL(
+                                          "https://www.linkedin.com"),
                                       child: Image.asset(
                                         "assets/linkedin.png",
                                         height: 30,
@@ -4925,7 +4994,8 @@ class _HomeScreenState extends State<HomeScreen>
                                     ),
                                     SizedBox(width: 20),
                                     GestureDetector(
-                                      onTap: () => _launchURL("https://www.twitter.com"),
+                                      onTap: () =>
+                                          _launchURL("https://www.twitter.com"),
                                       child: Image.asset(
                                         "assets/twitter.png",
                                         height: 30,
@@ -4966,7 +5036,6 @@ class _HomeScreenState extends State<HomeScreen>
   //   }
   // }
 
-
   void _launchURL(String url) async {
     Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
@@ -4976,7 +5045,8 @@ class _HomeScreenState extends State<HomeScreen>
     }
   }
 
-  Widget buildColumn_footer(String heading, List<Map<String, dynamic>> options) {
+  Widget buildColumn_footer(
+      String heading, List<Map<String, dynamic>> options) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -4994,10 +5064,12 @@ class _HomeScreenState extends State<HomeScreen>
             onTap: () async {
               final destination = option['destination'];
 
-              if (destination is String && Uri.tryParse(destination)?.hasScheme == true) {
+              if (destination is String &&
+                  Uri.tryParse(destination)?.hasScheme == true) {
                 // Launch external URLs (Facebook, Instagram)
                 if (await canLaunchUrl(Uri.parse(destination))) {
-                  await launchUrl(Uri.parse(destination), mode: LaunchMode.externalApplication);
+                  await launchUrl(Uri.parse(destination),
+                      mode: LaunchMode.externalApplication);
                 } else {
                   print('Could not launch $destination');
                 }
@@ -5056,8 +5128,6 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-
-
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -5101,52 +5171,3 @@ class _HomeScreenState extends State<HomeScreen>
 //     );
 //   }
 // }
-
-class BookingsScreen_Web extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Your Bookings"),
-      ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('customers')
-            .doc('customerId') // Replace with the actual customerId
-            .collection('bookings')
-            .orderBy('timestamp', descending: true)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          }
-          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(
-              child: Text(
-                "No bookings found.",
-                style: TextStyle(fontSize: 18),
-              ),
-            );
-          }
-
-          final bookings = snapshot.data!.docs;
-
-          return ListView.builder(
-            itemCount: bookings.length,
-            itemBuilder: (context, index) {
-              final booking = bookings[index].data() as Map<String, dynamic>;
-
-              return Card(
-                margin: EdgeInsets.all(8.0),
-                child: ListTile(
-                  title: Text("Ticket No: ${booking['TicketNo']}"),
-                  subtitle: Text("Status: ${booking['BusBookingStatus']}"),
-                ),
-              );
-            },
-          );
-        },
-      ),
-    );
-  }
-}
