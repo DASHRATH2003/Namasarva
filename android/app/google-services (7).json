@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "438619765696",
+    "project_id": "bus-booking-app-41beb",
+    "storage_bucket": "bus-booking-app-41beb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438619765696:android:e37c5f8ea136bffacca625",
+        "android_client_info": {
+          "package_name": "com.example.bus_appp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438619765696-0ibtlkmbcgiqbnoc95psgpiv08pj7vpj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bus_appp",
+            "certificate_hash": "ef90d55029fca0dcedafbd3018742f715037b390"
+          }
+        },
+        {
+          "client_id": "438619765696-dle2mtpc8ooltnjdhojfdu15klvdvp4r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQQE3I8K9HNsZsKlLdw5T_T_Q8EeY3R3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438619765696-dle2mtpc8ooltnjdhojfdu15klvdvp4r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "438619765696-9iesdh1v7gfkole2o8702nftj1v06bn4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.busAppp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

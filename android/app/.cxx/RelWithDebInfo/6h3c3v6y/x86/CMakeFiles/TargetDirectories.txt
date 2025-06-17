@@ -1,0 +1,2 @@
+C:/Users/HP/AndroidStudioProjects/bus_booking_app/android/app/.cxx/RelWithDebInfo/6h3c3v6y/x86/CMakeFiles/edit_cache.dir
+C:/Users/HP/AndroidStudioProjects/bus_booking_app/android/app/.cxx/RelWithDebInfo/6h3c3v6y/x86/CMakeFiles/rebuild_cache.dir
