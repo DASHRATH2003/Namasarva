@@ -125,7 +125,7 @@ class _BlockTicketPageState extends State<BlockTicketPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.redAccent.shade700,
-        title: Text("Boock Ticket"),
+        title: const Text("Boock Ticket"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -133,12 +133,12 @@ class _BlockTicketPageState extends State<BlockTicketPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _isLoading
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : ElevatedButton(
-              onPressed: _blockTicket,
-              child: Text('Boock Ticket'),
-            ),
-            SizedBox(height: 20),
+                    onPressed: _blockTicket,
+                    child: const Text('Boock Ticket'),
+                  ),
+            const SizedBox(height: 20),
             if (_errorMessage.isNotEmpty) Text(_errorMessage),
           ],
         ),

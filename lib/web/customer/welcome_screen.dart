@@ -1,198 +1,111 @@
-// bus_booking_application
-
-//success
-
-
-// import 'dart:math';
-//
-// import 'package:bus_booking_app/customer/sign_in_screen.dart';
-// import 'package:bus_booking_app/customer/sign_up_screen.dart';
-// import 'package:flutter/material.dart';
-//
-// class WelcomePage extends StatefulWidget {
-//   @override
-//   _WelcomePageState createState() => _WelcomePageState();
-// }
-//
-// class _WelcomePageState extends State<WelcomePage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.redAccent.shade700,
-//       body: SingleChildScrollView(
-//         child: Padding(
-//           padding: const EdgeInsets.all(20.0), // Padding for the entire screen
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start, // Aligns all children to the left
-//             children: [
-//               // Welcome text
-//               SizedBox(height: 50,),
-//               Row(
-//                 children: [
-//                   Text(
-//                     'Welcome',
-//                     style: TextStyle(
-//                       fontSize: 35,
-//                       fontWeight: FontWeight.bold,
-//                       color: Colors.white, // You can change this color
-//                     ),
-//                   ),
-//                   SizedBox(width: 5),
-//                   Text(
-//                     'to',
-//                     style: TextStyle(
-//                       fontSize: 28,
-//                       fontWeight: FontWeight.bold,
-//                       color: Colors.yellow, // Change color as needed
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//               SizedBox(height: 10),
-//               Text(
-//                 'Namma Savaari!',
-//                 style: TextStyle(
-//                   fontSize: 50,
-//                   fontFamily: 'DancingScript',
-//                   fontWeight: FontWeight.bold,
-//                   color: Colors.white, // You can change this color
-//                 ),
-//               ),
-//
-//               SizedBox(height: 80), // Space between texts
-//
-//               // Centered subtitle
-//               Center(
-//                 child: Text(
-//                   'Your journey starts here.',
-//                   style: TextStyle(
-//                     fontSize: 30,
-//                     fontWeight: FontWeight.bold,
-//                     color: Colors.yellow, // Change color as needed
-//                   ),
-//                 ),
-//               ),
-//
-//               SizedBox(height: 20), // Space between subtitle and description
-//
-//               // Description text
-//               Text(
-//                 'Find, book, and travel with ease. Explore seamless bus ticket booking, special deals, '
-//                     'and a hassle-free travel experience—just for you!',
-//                 textAlign: TextAlign.center, // Center-aligns the text
-//                 style: TextStyle(
-//                   fontSize: 18,
-//                   color: Colors.white, // Change color as needed
-//                 ),
-//               ),
-//
-//               SizedBox(height: 50), // Space between description and buttons
-//
-//               // Sign-Up Button
-//               Container(
-//                 height: 50,
-//                 width: double.infinity, // Full width button
-//                 child: ElevatedButton(
-//                   onPressed: () {
-//                     // Navigate to Sign-Up screen
-//                     Navigator.push(
-//                       context,
-//                       MaterialPageRoute(builder: (context) => SignUpScreen()),
-//                     );
-//                   },
-//                   child: Text('Sign Up',style: TextStyle(color: Colors.redAccent.shade700),),
-//                   style: ElevatedButton.styleFrom(
-//                     shape: RoundedRectangleBorder(
-//                         borderRadius: BorderRadiusDirectional.circular(8)
-//                     ),
-//                     backgroundColor: Colors.white, // Button color
-//                     textStyle: TextStyle(
-//                       fontSize: 16,
-//                       fontWeight: FontWeight.bold,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//
-//               SizedBox(height: 20), // Space between buttons
-//
-//               // Sign-In Button
-//               Container(
-//                 height: 50,
-//                 width: double.infinity, // Full width button
-//                 child: ElevatedButton(
-//                   onPressed: () {
-//                     // Navigate to Sign-In screen
-//                     Navigator.push(
-//                       context,
-//                       MaterialPageRoute(builder: (context) => SignInScreen()),
-//                     );
-//                   },
-//                   child: Text('Sign In',style: TextStyle(color: Colors.redAccent.shade700),),
-//                   style: ElevatedButton.styleFrom(
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadiusDirectional.circular(8)
-//                     ),
-//                     backgroundColor: Colors.white, // Button color
-//                     textStyle: TextStyle(
-//                       fontSize: 16,
-//                       fontWeight: FontWeight.bold,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-// Testing
-
+import 'package:bus_booking_app/customer/home_screen.dart';
 import 'package:bus_booking_app/customer/sign_in_screen.dart';
 import 'package:bus_booking_app/customer/sign_up_screen.dart';
+import 'package:bus_booking_app/customer/version_checker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'home_screen.dart';
 
-class WelcomePage_Web extends StatefulWidget {
+class WelcomePage extends StatefulWidget {
   @override
-  _WelcomePage_WebState createState() => _WelcomePage_WebState();
+  _WelcomePageState createState() => _WelcomePageState();
 }
 
-class _WelcomePage_WebState extends State<WelcomePage_Web> {
+class _WelcomePageState extends State<WelcomePage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  bool _isCheckingLoginStatus = true;
+  bool _isSigningIn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    )..repeat();
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   UpdateChecker.checkForUpdate(context);
+    // });
+    // Check login status when widget initializes
+    _checkLoginStatus();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+    if (isLoggedIn) {
+      // Get the current user ID
+      final User? user = FirebaseAuth.instance.currentUser;
+      final String? userId = user?.uid;
+
+      if (userId != null) {
+        // Fetch the login status from Firestore
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('customers')
+            .doc(userId)
+            .get();
+
+        if (userDoc.exists && userDoc['status'] == 'loggedIn') {
+          // Navigate to HomePage if the status is 'loggedIn'
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => HomePage()),
+            );
+          });
+          return;
+        }
+      }
+    }
+
+    // If not logged in or status not 'loggedIn', show sign-in options
+    setState(() {
+      _isCheckingLoginStatus = false;
+    });
+  }
+
   Future<void> _signInWithGoogle() async {
+    setState(() {
+      _isSigningIn = true;
+    });
+
     final FirebaseAuth auth = FirebaseAuth.instance;
     final GoogleSignIn googleSignIn = GoogleSignIn();
-    bool isSigning = false;
 
     try {
-      setState(() => isSigning = true);
-
-      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
 
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
+            await googleSignInAccount.authentication;
 
         final AuthCredential credential = GoogleAuthProvider.credential(
           idToken: googleSignInAuthentication.idToken,
           accessToken: googleSignInAuthentication.accessToken,
         );
 
-        UserCredential userCredential = await auth.signInWithCredential(credential);
+        UserCredential userCredential =
+            await auth.signInWithCredential(credential);
         User? user = userCredential.user;
 
         if (user != null) {
-          final userRef = FirebaseFirestore.instance.collection('customers').doc(user.uid);
+          final userRef =
+              FirebaseFirestore.instance.collection('customers').doc(user.uid);
 
           final docSnapshot = await userRef.get();
           if (!docSnapshot.exists) {
@@ -206,20 +119,22 @@ class _WelcomePage_WebState extends State<WelcomePage_Web> {
             await userRef.update({'status': 'loggedIn'});
           }
 
+          // Save login status locally
           final SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setBool('isLoggedIn', true);
 
-          setState(() => isSigning = false);
-
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (_) => HomePage_Web()),
+            MaterialPageRoute(builder: (_) => const HomePage()),
           );
         }
       }
     } catch (e) {
-      setState(() => isSigning = false);
       Fluttertoast.showToast(msg: "Error $e");
+    } finally {
+      setState(() {
+        _isSigningIn = false;
+      });
     }
   }
 
@@ -243,8 +158,8 @@ class _WelcomePage_WebState extends State<WelcomePage_Web> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 20),
-                    Text(
+                    const SizedBox(height: 20),
+                    const Text(
                       'Welcome to\nNamma Savaari!',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -254,16 +169,16 @@ class _WelcomePage_WebState extends State<WelcomePage_Web> {
                         height: 1.5,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Center(
                       child: Image.asset(
                         'assets/Namma_Savaari_LOGO1.png',
-                        height: 250,
+                        height: 230,
                         fit: BoxFit.contain,
                       ),
                     ),
-                    SizedBox(height: 20),
-                    Text(
+                    const SizedBox(height: 40),
+                    const Text(
                       'Your journey starts here.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -272,8 +187,8 @@ class _WelcomePage_WebState extends State<WelcomePage_Web> {
                         color: Colors.yellow,
                       ),
                     ),
-                    SizedBox(height: 10),
-                    Text(
+                    const SizedBox(height: 10),
+                    const Text(
                       'Find, book, and travel with ease.\nEnjoy seamless bus ticket booking!',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -289,38 +204,57 @@ class _WelcomePage_WebState extends State<WelcomePage_Web> {
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
                   children: [
-                    Container(
-                      height: 55,
-                      width: 600,
-                      child: ElevatedButton(
-                        onPressed: _signInWithGoogle,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                    if (_isCheckingLoginStatus || _isSigningIn)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: LinearProgressIndicator(
+                            valueColor: _controller.drive(
+                              ColorTween(
+                                begin: Colors.white,
+                                end: Colors.pink,
+                              ),
+                            ),
+                            backgroundColor: Colors.white.withOpacity(0.3),
                           ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/google_logo_officiall.png',
-                              width: 24,
-                              height: 24,
+                      )
+                    else
+                      Container(
+                        height: 55,
+                        width: 600,
+                        child: ElevatedButton(
+                          onPressed: _signInWithGoogle,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
                             ),
-                            SizedBox(width: 10),
-                            Text(
-                              'Sign in with Google',
-                              style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/google_logo_officiall.png',
+                                width: 24,
+                                height: 24,
+                              ),
+                              const SizedBox(width: 10),
+                              const Text(
+                                'Sign in with Google',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
+                    const SizedBox(height: 50),
                   ],
                 ),
               ),
-              SizedBox(height: 20),
             ],
           ),
         ),
