@@ -185,6 +185,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.2"
+  equatable:
+    dependency: transitive
+    description:
+      name: equatable
+      sha256: "567c64b3cb4cf82397aac55f4f0cbd3ca20d77c6c03bedbc4ceaddc08904aef7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.7"
   eventify:
     dependency: transitive
     description:
@@ -393,6 +401,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+  fl_chart:
+    dependency: "direct main"
+    description:
+      name: fl_chart
+      sha256: "74959b99b92b9eebeed1a4049426fd67c4abc3c5a0f4d12e2877097d6a11ae08"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.69.2"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -619,6 +635,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.1"
+  flutter_razorpay_web:
+    dependency: "direct main"
+    description:
+      name: flutter_razorpay_web
+      sha256: "58c36fa887cbf5ae8dc0622059175a7f142992e1a2f442cf1d2c015d9eb21c0b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   flutter_secure_storage:
     dependency: transitive
     description:
@@ -1133,6 +1157,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  pedometer:
+    dependency: "direct main"
+    description:
+      name: pedometer
+      sha256: "16d7a3df91b9ad72304cf47924dfe9c1abd50304fbf23245edbc89d8429957c1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   petitparser:
     dependency: transitive
     description:
@@ -1221,6 +1253,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  razorpay_web:
+    dependency: "direct main"
+    description:
+      name: razorpay_web
+      sha256: b6ffa7d7b5da7d62208c11e2e49c86eeae13760b56029eeda8daf2a11e7b7527
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   sanitize_html:
     dependency: transitive
     description:
@@ -1410,6 +1450,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.2"
+  universal_platform:
+    dependency: transitive
+    description:
+      name: universal_platform
+      sha256: "64e16458a0ea9b99260ceb5467a214c1f298d647c659af1bff6d3bf82536b1ec"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   upgrader:
     dependency: "direct main"
     description:

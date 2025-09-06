@@ -304,103 +304,111 @@
 //   }
 // }
 
-// With KisWeb updated final 13 production
+// With KisWeb updated final 13 production 09/02/2025
 
-import 'package:bus_booking_app/customer/version_checker.dart';
-import 'package:bus_booking_app/firebase_options.dart';
-import 'package:bus_booking_app/customer/welcome_screen.dart';
-import 'package:bus_booking_app/web/customer/home_screen.dart';
-import 'package:bus_booking_app/web/services.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform;
-
-// Import the web utility file to check for mobile web
-import 'web_utils.dart';
-
-import 'customer/theme_provider.dart';
-
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  // Initialize Firebase
-  await Firebase.initializeApp(
-    options: kIsWeb ? DefaultFirebaseOptions.currentPlatform : null,
-  );
-
-  // Initialize Local Notifications (only for mobile)
-  if (!kIsWeb &&
-      (defaultTargetPlatform == TargetPlatform.android ||
-          defaultTargetPlatform == TargetPlatform.iOS)) {
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-
-    const DarwinInitializationSettings initializationSettingsIOS =
-        DarwinInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
-    );
-
-    const InitializationSettings initializationSettings =
-        InitializationSettings(
-      android: initializationSettingsAndroid,
-      iOS: initializationSettingsIOS,
-    );
-
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-  }
-
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
-        ChangeNotifierProvider(create: (_) => CityProvider()),
-      ],
-      child: const VersionCheckWrapper(child: MyApp()),
-    ),
-  );
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  @override
-  Widget build(BuildContext context) {
-    final isDarkMode = Provider.of<ThemeProvider>(context).isDarkMode;
-    return MaterialApp(
-      title: 'Namma Savaari',
-      // theme: ThemeData(
-      //   fontFamily: kIsWeb ? "Montserrat" : null,
-      // ),
-      theme: ThemeData(
-        fontFamily: kIsWeb ? "Montserrat" : null,
-        brightness: isDarkMode ? Brightness.dark : Brightness.light,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: _getHomeScreen(),
-    );
-  }
-
-  /// Determines the correct home screen based on the platform
-  Widget _getHomeScreen() {
-    if (kIsWeb) {
-      // Ensure mobile web is detected correctly
-      return isMobileWeb() ? const WelcomePage() : HomePage_Web();
-    } else if (defaultTargetPlatform == TargetPlatform.android ||
-        defaultTargetPlatform == TargetPlatform.iOS) {
-      // Return the proper mobile home screen
-      return const WelcomePage(); // Change to your actual mobile home screen
-    } else {
-      // Default for other platforms like Windows, macOS, Linux
-      return HomePage_Web();
-    }
-  }
-}
+// import 'package:bus_booking_app/customer/version_checker.dart';
+// import 'package:bus_booking_app/firebase_options.dart';
+// import 'package:bus_booking_app/customer/welcome_screen.dart';
+// import 'package:bus_booking_app/web/customer/about_Us.dart';
+// import 'package:bus_booking_app/web/customer/contact_Us.dart';
+// import 'package:bus_booking_app/web/customer/home_screen.dart';
+// import 'package:bus_booking_app/web/customer/privacyPolicy_page.dart';
+// import 'package:bus_booking_app/web/customer/terms_condition_page.dart';
+// import 'package:bus_booking_app/web/customer/visi.dart';
+// import 'package:bus_booking_app/web/services.dart';
+// import 'package:flutter/material.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:go_router/go_router.dart';
+// import 'package:provider/provider.dart';
+// import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform;
+//
+// // Import the web utility file to check for mobile web
+// import 'customer/customer_help_topics.dart';
+// import 'web_utils.dart';
+//
+// import 'customer/theme_provider.dart';
+//
+// final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+//     FlutterLocalNotificationsPlugin();
+//
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//
+//   // Initialize Firebase
+//   await Firebase.initializeApp(
+//     options: kIsWeb ? DefaultFirebaseOptions.currentPlatform : null,
+//   );
+//
+//   // Initialize Local Notifications (only for mobile)
+//   if (!kIsWeb &&
+//       (defaultTargetPlatform == TargetPlatform.android ||
+//           defaultTargetPlatform == TargetPlatform.iOS)) {
+//     const AndroidInitializationSettings initializationSettingsAndroid =
+//         AndroidInitializationSettings('@mipmap/ic_launcher');
+//
+//     const DarwinInitializationSettings initializationSettingsIOS =
+//         DarwinInitializationSettings(
+//       requestAlertPermission: true,
+//       requestBadgePermission: true,
+//       requestSoundPermission: true,
+//     );
+//
+//     const InitializationSettings initializationSettings =
+//         InitializationSettings(
+//       android: initializationSettingsAndroid,
+//       iOS: initializationSettingsIOS,
+//     );
+//
+//     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+//   }
+//
+//   runApp(
+//     MultiProvider(
+//       providers: [
+//         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+//         ChangeNotifierProvider(create: (_) => CityProvider()),
+//       ],
+//       child: const VersionCheckWrapper(child: MyApp()),
+//     ),
+//   );
+// }
+//
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+//   @override
+//   Widget build(BuildContext context) {
+//     final isDarkMode = Provider.of<ThemeProvider>(context).isDarkMode;
+//     return MaterialApp(
+//       title: 'Namma Savaari',
+//       // theme: ThemeData(
+//       //   fontFamily: kIsWeb ? "Montserrat" : null,
+//       // ),
+//       theme: ThemeData(
+//         fontFamily: kIsWeb ? "Montserrat" : null,
+//         brightness: isDarkMode ? Brightness.dark : Brightness.light,
+//       ),
+//       debugShowCheckedModeBanner: false,
+//       home: _getHomeScreen(),
+//     );
+//   }
+//
+//
+//   /// Determines the correct home screen based on the platform
+//   Widget _getHomeScreen() {
+//     if (kIsWeb) {
+//       // Ensure mobile web is detected correctly
+//       return isMobileWeb() ? const WelcomePage() : HomePage_Web();
+//     } else if (defaultTargetPlatform == TargetPlatform.android ||
+//         defaultTargetPlatform == TargetPlatform.iOS) {
+//       // Return the proper mobile home screen
+//       return const WelcomePage(); // Change to your actual mobile home screen
+//     } else {
+//       // Default for other platforms like Windows, macOS, Linux
+//       return HomePage_Web();
+//     }
+//   }
+// }
 
 
 
@@ -430,7 +438,7 @@ class MyApp extends StatelessWidget {
 // }
 
 
-
+// PISS
 
 // import 'package:bus_booking_app/web/customer/about_Us.dart';
 // import 'package:bus_booking_app/web/customer/contact_Us.dart';
@@ -447,6 +455,7 @@ class MyApp extends StatelessWidget {
 // import 'package:go_router/go_router.dart';
 // import 'dart:html' as html;
 //
+// import 'customer/Bookings_screen.dart';
 // import 'customer/customer_help_topics.dart';
 // import 'customer/theme_provider.dart';
 // import 'customer/cust_loading_screen.dart';
@@ -539,11 +548,11 @@ class MyApp extends StatelessWidget {
 //     ),
 //     GoRoute(
 //       path: "/myBookings",
-//       builder: (context, state) => BookingsScreen_Web(),
+//       builder: (context, state) => BookingsScreen(),
 //     ),
 //     GoRoute(
 //       path: "/signin",
-//       builder: (context, state) => WelcomePage_Web(),
+//       builder: (context, state) => WelcomePage(),
 //     ),
 //   ],
 // );
@@ -577,8 +586,8 @@ class MyApp extends StatelessWidget {
 //     );
 //   }
 // }
-
-
+//
+//
 
 
 
@@ -745,3 +754,156 @@ class MyApp extends StatelessWidget {
 //   }
 // }
 //
+
+
+
+
+//
+
+
+
+import 'package:bus_booking_app/customer/version_checker.dart';
+import 'package:bus_booking_app/firebase_options.dart';
+import 'package:bus_booking_app/customer/welcome_screen.dart';
+import 'package:bus_booking_app/web/customer/about_Us.dart';
+import 'package:bus_booking_app/web/customer/contact_Us.dart';
+import 'package:bus_booking_app/web/customer/home_screen.dart';
+import 'package:bus_booking_app/web/customer/privacyPolicy_page.dart';
+import 'package:bus_booking_app/web/customer/terms_condition_page.dart';
+import 'package:bus_booking_app/web/customer/visi.dart';
+import 'package:bus_booking_app/web/services.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform;
+
+// Import utilities
+import 'customer/customer_help_topics.dart';
+import 'web_utils.dart';
+import 'customer/theme_provider.dart';
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+FlutterLocalNotificationsPlugin();
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase
+  await Firebase.initializeApp(
+    options: kIsWeb ? DefaultFirebaseOptions.currentPlatform : null,
+  );
+
+  // Initialize Local Notifications (only for mobile)
+  if (!kIsWeb &&
+      (defaultTargetPlatform == TargetPlatform.android ||
+          defaultTargetPlatform == TargetPlatform.iOS)) {
+    const AndroidInitializationSettings initializationSettingsAndroid =
+    AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    const DarwinInitializationSettings initializationSettingsIOS =
+    DarwinInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+    );
+
+    const InitializationSettings initializationSettings =
+    InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsIOS,
+    );
+
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => CityProvider()),
+      ],
+      child: const VersionCheckWrapper(child: MyApp()),
+    ),
+  );
+}
+
+// ✅ GoRouter setup
+final GoRouter _router = GoRouter(
+  initialLocation: "/",
+  routes: [
+    GoRoute(
+      path: "/",
+      builder: (context, state) => _getHomeScreen(),
+    ),
+    GoRoute(
+      path: "/home",
+      builder: (context, state) => HomePage_Web(),
+    ),
+    GoRoute(
+      path: "/termsandcondition",
+      builder: (context, state) => TermsAndConditionsScreen(),
+    ),
+    GoRoute(
+      path: "/privacypolicy",
+      builder: (context, state) => PrivacyPolicyScreen(),
+    ),
+    GoRoute(
+      path: "/faq",
+      builder: (context, state) => HelpTopicsScreen(),
+    ),
+    GoRoute(
+      path: "/aboutus",
+      builder: (context, state) => About_Us(),
+    ),
+    GoRoute(
+      path: "/contactus",
+      builder: (context, state) => Contact_Us(),
+    ),
+    // GoRoute(
+    //   path: "/services",
+    //   builder: (context, state) => ServicesPage(),
+    // ),
+    // GoRoute(
+    //   path: "/visi",
+    //   builder: (context, state) => VisiPage(),
+    // ),
+    GoRoute(
+      path: "/signin",
+      builder: (context, state) => WelcomePage(),
+    ),
+  ],
+);
+
+/// Determines the correct home screen based on the platform
+Widget _getHomeScreen() {
+  if (kIsWeb) {
+    // Ensure mobile web is detected correctly
+    return isMobileWeb() ? const WelcomePage() : HomePage_Web();
+  } else if (defaultTargetPlatform == TargetPlatform.android ||
+      defaultTargetPlatform == TargetPlatform.iOS) {
+    return const WelcomePage(); // Mobile home
+  } else {
+    return HomePage_Web(); // Desktop
+  }
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final isDarkMode = Provider.of<ThemeProvider>(context).isDarkMode;
+
+    return MaterialApp.router(
+      title: 'Namma Savaari',
+      theme: ThemeData(
+        fontFamily: kIsWeb ? "Montserrat" : null,
+        brightness: isDarkMode ? Brightness.dark : Brightness.light,
+      ),
+      debugShowCheckedModeBanner: false,
+      routerConfig: _router, // ✅ GoRouter instead of home:
+    );
+  }
+}

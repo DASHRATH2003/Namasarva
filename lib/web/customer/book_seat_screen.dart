@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-
 import 'home_screen.dart';
 
 class BookSeat extends StatefulWidget {
@@ -259,7 +258,7 @@ class _BookSeatState extends State<BookSeat> {
   }
 
   Future<void> bookSeat(BuildContext context, String paymentId) async {
-    const String apiUrl = "https://namma-savaari-api-backend-9mpl.vercel.app/bus-api/BookSeat";
+    const String apiUrl = "https://namma-savaari-api-backend.vercel.app/bus-api/book";
 
     // Construct passenger list from the passengers data
     List<Map<String, dynamic>> passengers = widget.passengers.map((passenger) {

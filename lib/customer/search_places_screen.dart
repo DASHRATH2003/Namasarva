@@ -1170,7 +1170,7 @@ class _CitySelectionPageState extends State<CitySelectionPage> {
   // Fetch the city list from the API
   Future<void> _fetchCityList() async {
     const String url =
-        "https://namma-savaari-api-backend-9mpl.vercel.app/city-list";
+        "https://namma-savaari-api-backend.vercel.app/city-list";
     const Map<String, String> headers = {
       "Content-Type": "application/json",
       "Api-Token": "Namma@90434#34",

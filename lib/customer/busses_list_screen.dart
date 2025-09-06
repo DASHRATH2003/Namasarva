@@ -472,7 +472,7 @@ class _BusListPageState extends State<BusListPage> {
 
   Future<void> _fetchBusResults() async {
     const String apiUrl =
-        "https://namma-savaari-api-backend-9mpl.vercel.app/search";
+        "https://namma-savaari-api-backend.vercel.app/search";
     final Map<String, dynamic> requestBody = {
       "ClientId": "180187",
       "UserName": "Namma434",

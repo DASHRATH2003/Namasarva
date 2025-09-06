@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../customer/welcome_screen.dart';
 import 'Account_settings_screen.dart';
 import 'customer_account_screen.dart';
 
@@ -49,7 +50,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TrendyLoadingScreen(),
+            builder: (context) => WelcomePage(),
           ),
         );
       } catch (e) {

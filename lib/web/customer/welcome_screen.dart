@@ -1,4 +1,3 @@
-import 'package:bus_booking_app/customer/home_screen.dart';
 import 'package:bus_booking_app/customer/sign_in_screen.dart';
 import 'package:bus_booking_app/customer/sign_up_screen.dart';
 import 'package:bus_booking_app/customer/version_checker.dart';
@@ -10,6 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/scheduler.dart';
 
+import '../../customer/home_screen.dart';
 import 'home_screen.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -17,8 +17,7 @@ class WelcomePage extends StatefulWidget {
   _WelcomePageState createState() => _WelcomePageState();
 }
 
-class _WelcomePageState extends State<WelcomePage>
-    with SingleTickerProviderStateMixin {
+class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   bool _isCheckingLoginStatus = true;
   bool _isSigningIn = false;
@@ -64,7 +63,7 @@ class _WelcomePageState extends State<WelcomePage>
           SchedulerBinding.instance.addPostFrameCallback((_) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => HomePage()),
+              MaterialPageRoute(builder: (_) => HomePage_Web()),
             );
           });
           return;
@@ -87,25 +86,22 @@ class _WelcomePageState extends State<WelcomePage>
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
     try {
-      final GoogleSignInAccount? googleSignInAccount =
-          await googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
 
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication =
-            await googleSignInAccount.authentication;
+        await googleSignInAccount.authentication;
 
         final AuthCredential credential = GoogleAuthProvider.credential(
           idToken: googleSignInAuthentication.idToken,
           accessToken: googleSignInAuthentication.accessToken,
         );
 
-        UserCredential userCredential =
-            await auth.signInWithCredential(credential);
+        UserCredential userCredential = await auth.signInWithCredential(credential);
         User? user = userCredential.user;
 
         if (user != null) {
-          final userRef =
-              FirebaseFirestore.instance.collection('customers').doc(user.uid);
+          final userRef = FirebaseFirestore.instance.collection('customers').doc(user.uid);
 
           final docSnapshot = await userRef.get();
           if (!docSnapshot.exists) {
@@ -125,7 +121,7 @@ class _WelcomePageState extends State<WelcomePage>
 
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (_) => const HomePage()),
+            MaterialPageRoute(builder: (_) => HomePage_Web()),
           );
         }
       }
@@ -158,8 +154,8 @@ class _WelcomePageState extends State<WelcomePage>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 20),
-                    const Text(
+                    SizedBox(height: 20),
+                    Text(
                       'Welcome to\nNamma Savaari!',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -169,7 +165,7 @@ class _WelcomePageState extends State<WelcomePage>
                         height: 1.5,
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20),
                     Center(
                       child: Image.asset(
                         'assets/Namma_Savaari_LOGO1.png',
@@ -177,8 +173,8 @@ class _WelcomePageState extends State<WelcomePage>
                         fit: BoxFit.contain,
                       ),
                     ),
-                    const SizedBox(height: 40),
-                    const Text(
+                    SizedBox(height: 40),
+                    Text(
                       'Your journey starts here.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -187,8 +183,8 @@ class _WelcomePageState extends State<WelcomePage>
                         color: Colors.yellow,
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    const Text(
+                    SizedBox(height: 10),
+                    Text(
                       'Find, book, and travel with ease.\nEnjoy seamless bus ticket booking!',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -240,18 +236,16 @@ class _WelcomePageState extends State<WelcomePage>
                                 width: 24,
                                 height: 24,
                               ),
-                              const SizedBox(width: 10),
-                              const Text(
+                              SizedBox(width: 10),
+                              Text(
                                 'Sign in with Google',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
                         ),
                       ),
-                    const SizedBox(height: 50),
+                    SizedBox(height: 50),
                   ],
                 ),
               ),

@@ -628,6 +628,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/scheduler.dart';
 
+import '../web/customer/home_screen.dart';
 import 'home_screen.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -681,7 +682,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
           SchedulerBinding.instance.addPostFrameCallback((_) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => const HomePage()),
+              MaterialPageRoute(builder: (_) => HomePage_Web()),
             );
           });
           return;
@@ -739,7 +740,7 @@ class _WelcomePageState extends State<WelcomePage> with SingleTickerProviderStat
 
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (_) => const HomePage()),
+            MaterialPageRoute(builder: (_) => HomePage_Web()),
           );
         }
       }

@@ -1850,7 +1850,6 @@
 // Testing
 
 import 'package:bus_booking_app/customer/welcome_screen.dart';
-import 'package:bus_booking_app/web/customer/ticket_details_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -1861,6 +1860,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../customer/Bookings_screen.dart';
 import '../../customer/customer_offers_details_screen.dart';
 import 'busses_list_screen.dart';
 import 'customer_account_screen.dart';
@@ -1949,7 +1949,7 @@ class _HomePage_WebState extends State<HomePage_Web> {
     super.initState();
     _pages = [
       HomeScreen(),
-      BookingScreen(),
+      BookingsScreen(),
       HelpScreen(),
       MyAccountScreen(
         onNavigateToHelp: () => _onItemTapped(2),

@@ -4498,7 +4498,7 @@ class _BookSeatState extends State<BookSeat> {
 
   Future<void> bookSeat(BuildContext context, String paymentId) async {
     const String apiUrl =
-        "https://namma-savaari-api-backend-9mpl.vercel.app/get-seat-layout";
+        "https://namma-savaari-api-backend.vercel.app/bus-api/book";
 
     // Construct passenger list from the passengers data
     List<Map<String, dynamic>> passengers = widget.passengers.map((passenger) {

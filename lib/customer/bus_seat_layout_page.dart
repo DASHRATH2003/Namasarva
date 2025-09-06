@@ -1351,7 +1351,7 @@ class _SeatLayoutPageState extends State<SeatLayoutPage> {
   Future<void> _fetchSeatLayout() async {
     // final String apiUrl = "https://bus.srdvapi.com/v5/rest/GetSeatLayOut";
     const String apiUrl =
-        "https://namma-savaari-api-backend-9mpl.vercel.app/get-seat-layout";
+        "https://namma-savaari-api-backend.vercel.app/get-seat-layout";
 
     final Map<String, dynamic> requestBody = {
       "ClientId": "180187",

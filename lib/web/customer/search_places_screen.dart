@@ -1107,12 +1107,16 @@
 //updated_test
 
 import 'dart:convert';
+import 'package:bus_booking_app/web/services.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
 class CitySelectionPage extends StatefulWidget {
+  const CitySelectionPage({super.key});
+
   @override
   _CitySelectionPageState createState() => _CitySelectionPageState();
 }
@@ -1124,17 +1128,19 @@ class _CitySelectionPageState extends State<CitySelectionPage> {
   List<Map<String, dynamic>> _recentCities = [];
   List<Map<String, dynamic>> _recentCityPairs = [];
   bool _isLoading = false;
-  TextEditingController _searchController = TextEditingController();
-  FocusNode _searchFocusNode =
-      FocusNode(); // FocusNode to track search bar focus
+  final TextEditingController _searchController = TextEditingController();
+  final FocusNode _searchFocusNode =
+  FocusNode(); // FocusNode to track search bar focus
 
   @override
   void initState() {
     super.initState();
     _getCustomerId();
+    _fetchCityList();
     _fetchRecentCities();
     _fetchRecentCityPairs();
     _searchController.addListener(_filterCities);
+    Provider.of<CityProvider>(context, listen: false).fetchCities();
 
     // Add a listener to the FocusNode to update the UI when focus changes
     _searchFocusNode.addListener(() {
@@ -1162,53 +1168,54 @@ class _CitySelectionPageState extends State<CitySelectionPage> {
   }
 
   // Fetch the city list from the API
-  // Future<void> _fetchCityList() async {
-  //   const String url = "http://65.0.115.185:8081/city-list";
-  //   const Map<String, String> headers = {
-  //     "Content-Type": "application/json",
-  //     "Api-Token": "Namma@90434#34",
-  //   };
+  Future<void> _fetchCityList() async {
+    const String url =
+        "https://namma-savaari-api-backend.vercel.app/city-list";
+    const Map<String, String> headers = {
+      "Content-Type": "application/json",
+      "Api-Token": "Namma@90434#34",
+    };
 
-  //   const Map<String, String> body = {
-  //     "ClientId": "180187",
-  //     "UserName": "Namma434",
-  //     "Password": "Namma@4341",
-  //     "EndUserIp": "157.48.136.69"
-  //   };
+    const Map<String, String> body = {
+      "ClientId": "180187",
+      "UserName": "Namma434",
+      "Password": "Namma@4341",
+      "EndUserIp": "157.48.136.69"
+    };
 
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
+    setState(() {
+      _isLoading = true;
+    });
 
-  //   try {
-  //     final response = await http.post(
-  //       Uri.parse(url),
-  //       headers: headers,
-  //       body: json.encode(body),
-  //     );
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: headers,
+        body: json.encode(body),
+      );
 
-  //     if (response.statusCode == 200) {
-  //       final data = json.decode(response.body);
-  //       if (data["Error"]["ErrorCode"] == 1 && data["Result"] != null) {
-  //         setState(() {
-  //           _cityList =
-  //               List<Map<String, dynamic>>.from(data["Result"]["CityList"]);
-  //           _filteredCityList = List.from(_cityList);
-  //         });
-  //       } else {
-  //         _showError(data["Error"]["ErrorMessage"] ?? "Unknown error");
-  //       }
-  //     } else {
-  //       _showError("Failed to fetch data. Status code: ${response.statusCode}");
-  //     }
-  //   } catch (e) {
-  //     _showError("An error occurred: $e");
-  //   } finally {
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //   }
-  // }
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data["Error"]["ErrorCode"] == 1 && data["Result"] != null) {
+          setState(() {
+            _cityList =
+            List<Map<String, dynamic>>.from(data["Result"]["CityList"]);
+            _filteredCityList = List.from(_cityList);
+          });
+        } else {
+          _showError(data["Error"]["ErrorMessage"] ?? "Unknown error");
+        }
+      } else {
+        _showError("Failed to fetch data. Status code: ${response.statusCode}");
+      }
+    } catch (e) {
+      _showError("An error occurred: $e");
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   // Fetch recent cities from Firestore
   Future<void> _fetchRecentCities() async {
@@ -1224,9 +1231,9 @@ class _CitySelectionPageState extends State<CitySelectionPage> {
 
       List<Map<String, dynamic>> recentCities = [];
 
-      snapshot.docs.forEach((doc) {
+      for (var doc in snapshot.docs) {
         recentCities.add(doc.data());
-      });
+      }
 
       setState(() {
         _recentCities = recentCities;
@@ -1247,7 +1254,7 @@ class _CitySelectionPageState extends State<CitySelectionPage> {
           .collection('recentCityPairs');
 
       final snapshot =
-          await userDocRef.orderBy('timestamp', descending: true).get();
+      await userDocRef.orderBy('timestamp', descending: true).get();
 
       List<Map<String, dynamic>> recentPairs = [];
 
@@ -1304,7 +1311,7 @@ class _CitySelectionPageState extends State<CitySelectionPage> {
                   color: Colors.redAccent.shade700,
                 ),
                 contentPadding:
-                    EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+                const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide(
@@ -1359,7 +1366,7 @@ class _CitySelectionPageState extends State<CitySelectionPage> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Colors.black26,
                       blurRadius: 6,
@@ -1378,47 +1385,63 @@ class _CitySelectionPageState extends State<CitySelectionPage> {
                         color: Colors.redAccent.shade700,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     SizedBox(
                       height: 150,
-                      child: ListView.separated(
-                        itemCount: _recentCityPairs.length,
-                        itemBuilder: (context, index) {
-                          final pair = _recentCityPairs[index];
-                          final fromPlace = pair['fromPlace'].split(' - ')[0];
-                          final toPlace = pair['toPlace'].split(' - ')[0];
-
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context, {
-                                'fromPlace': pair['fromPlace'],
-                                'toPlace': pair['toPlace'],
-                              });
-                            },
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
-                              child: Text(
-                                "$fromPlace -> $toPlace",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return Divider(
-                            color: Colors.grey.shade300,
-                            height: 1,
-                            thickness: 1,
-                          );
-                        },
-                      ),
+                      child: Consumer<CityProvider>(
+                          builder: (context, value, child) {
+                            return ListView.builder(
+                                itemCount: value.cities.length,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  final city = value.cities[index];
+                                  return ListTile(
+                                    title: Text("${city.result}"),
+                                  );
+                                });
+                          }),
                     ),
+                    // SizedBox(
+                    //   height: 150,
+                    //   child: ListView.separated(
+                    //     itemCount: _recentCityPairs.length,
+                    //     itemBuilder: (context, index) {
+                    //       final pair = _recentCityPairs[index];
+                    //       final fromPlace = pair['fromPlace'].split(' - ')[0];
+                    //       final toPlace = pair['toPlace'].split(' - ')[0];
+
+                    //       return GestureDetector(
+                    //         onTap: () {
+                    //           Navigator.pop(context, {
+                    //             'fromPlace': pair['fromPlace'],
+                    //             'toPlace': pair['toPlace'],
+                    //           });
+                    //         },
+                    //         child: Padding(
+                    //           padding:
+                    //               const EdgeInsets.symmetric(vertical: 8.0),
+                    //           child: Text(
+                    //             "$fromPlace -> $toPlace",
+                    //             style: const TextStyle(
+                    //               color: Colors.black,
+                    //               fontSize: 16,
+                    //               fontWeight: FontWeight.w500,
+                    //             ),
+                    //             overflow: TextOverflow.ellipsis,
+                    //           ),
+                    //         ),
+                    //       );
+                    //     },
+                    //     separatorBuilder: (context, index) {
+                    //       return Divider(
+                    //         color: Colors.grey.shade300,
+                    //         height: 1,
+                    //         thickness: 1,
+                    //       );
+                    //     },
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -1431,7 +1454,7 @@ class _CitySelectionPageState extends State<CitySelectionPage> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black26,
                     blurRadius: 6,
@@ -1440,31 +1463,34 @@ class _CitySelectionPageState extends State<CitySelectionPage> {
                 ],
               ),
               child: _isLoading
-                  ? Center(child: CircularProgressIndicator())
+                  ? const Center(child: CircularProgressIndicator())
                   : _filteredCityList.isEmpty
-                      ? Center(child: Text("No cities available."))
-                      : ListView.separated(
-                          itemCount: _filteredCityList.length,
-                          itemBuilder: (context, index) {
-                            final city = _filteredCityList[index];
-                            return ListTile(
-                              title: Text(city["CityName"] ?? "Unknown City"),
-                              onTap: () {
-                                Navigator.pop(context, {
-                                  "CityName": city["CityName"],
-                                  "CityId": city["CityId"],
-                                });
-                              },
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return Divider(
-                              color: Colors.grey.shade300,
-                              height: 1,
-                              thickness: 1,
-                            );
-                          },
-                        ),
+                  ? const Center(child: Text("No cities available."))
+                  : ListView.separated(
+                itemCount: _filteredCityList.length,
+                itemBuilder: (context, index) {
+                  final city = _filteredCityList[index];
+                  return ListTile(
+                    title: Text(
+                      city["CityName"] ?? "Unknown City",
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context, {
+                        "CityName": city["CityName"],
+                        "CityId": city["CityId"],
+                      });
+                    },
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return Divider(
+                    color: Colors.grey.shade300,
+                    height: 1,
+                    thickness: 1,
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -1472,7 +1498,6 @@ class _CitySelectionPageState extends State<CitySelectionPage> {
     );
   }
 }
-
 
 //Testing
 
